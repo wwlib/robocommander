@@ -215,22 +215,27 @@ export default class ToolsPanel extends React.Component<ToolsPanelProps, ToolsPa
     }
 
     render() {
+        // <ReactBootstrap.Button bsStyle={'default'} key={"exportDot"} style = {{width: 80}}
+        // onClick={this.onButtonClicked.bind(this, "exportDot")}>Dot</ReactBootstrap.Button>
+        // <ReactBootstrap.Button bsStyle={'default'} key={"exportMarkup"} style = {{width: 80}}
+        // onClick={this.onButtonClicked.bind(this, "exportMarkup")}>Markup</ReactBootstrap.Button>
+
         return  <div className="editor-panel well" id="toolsPanel">
                   <div className="tools form-inline">
                     <ModalExport showModalProp={this.state.showModal} onClose={this.onCloseModalExport.bind(this)} graphModel={this.props.graphModel} exportMode={this.state.exportMode} />
                     <ModalFileDetails showModalProp={this.state.showFileDetailsModal} onClose={this.onCloseModalFileDetails.bind(this)} graphModel={this.props.graphModel} fileDetailsMode={this.state.fileDetailsMode} />
                     <ReactBootstrap.Button bsStyle={'default'} key={"exportGraph"} style = {{width: 80}}
                       onClick={this.onButtonClicked.bind(this, "exportGraph")}>Graph</ReactBootstrap.Button>
-                    <ReactBootstrap.Button bsStyle={'default'} key={"exportMarkup"} style = {{width: 80}}
-                      onClick={this.onButtonClicked.bind(this, "exportMarkup")}>Markup</ReactBootstrap.Button>
                     <ReactBootstrap.Button bsStyle={'default'} key={"exportD3"} style = {{width: 80}}
                       onClick={this.onButtonClicked.bind(this, "exportD3")}>D3</ReactBootstrap.Button>
                     <ReactBootstrap.Button bsStyle={'default'} key={"exportSVG"} style = {{width: 80}}
                       onClick={this.onButtonClicked.bind(this, "exportSVG")}>SVG</ReactBootstrap.Button>
                     <ReactBootstrap.Button bsStyle={'default'} key={"exportCSS"} style = {{width: 80}}
                       onClick={this.onButtonClicked.bind(this, "exportCSS")}>CSS</ReactBootstrap.Button>
-                  <ReactBootstrap.Button bsStyle={'default'} key={"exportDot"} style = {{width: 80}}
-                    onClick={this.onButtonClicked.bind(this, "exportDot")}>Dot</ReactBootstrap.Button>
+                  <ReactBootstrap.Button bsStyle={'default'} key={"import"} style = {{width: 80}}
+                      onClick={this.onButtonClicked.bind(this, "import")}>Import</ReactBootstrap.Button>
+                  <ReactBootstrap.Button bsStyle={'default'} key={"show"} style = {{width: 80}}
+                      onClick={this.onButtonClicked.bind(this, "show")}>Show</ReactBootstrap.Button>
 
                     <div>
                         <label className="input-label">Open:</label>
@@ -242,10 +247,7 @@ export default class ToolsPanel extends React.Component<ToolsPanelProps, ToolsPa
                           onClick={this.onButtonClicked.bind(this, "details")}>Details</ReactBootstrap.Button>
                         <ReactBootstrap.Button bsStyle={'default'} key={"newFile"} style = {{width: 80}}
                             onClick={this.onButtonClicked.bind(this, "newFile")}>New File</ReactBootstrap.Button>
-                        <ReactBootstrap.Button bsStyle={'default'} key={"import"} style = {{width: 80}}
-                            onClick={this.onButtonClicked.bind(this, "import")}>Import</ReactBootstrap.Button>
-                        <ReactBootstrap.Button bsStyle={'default'} key={"show"} style = {{width: 80}}
-                            onClick={this.onButtonClicked.bind(this, "show")}>Show</ReactBootstrap.Button>
+
                     </div>
                   </div>
                 </div>;

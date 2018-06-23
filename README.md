@@ -32,9 +32,11 @@ yarn dist:dir
 
 ![RoboCommander](./docs/img/RoboCommander-panels.png)
 
+![RoboCommander](./docs/img/RoboCommander-robot-modal.png)
+
 ![RoboCommander](./docs/img/RoboCommander-basic.png)
 
-![RoboCommander](./docs/img/RoboCommander-robot-modal.png)
+![RoboCommander](./docs/img/RoboCommander-dialog.png)
 
 ### Linux setup
 * Recommend NodeJS 8.11.1

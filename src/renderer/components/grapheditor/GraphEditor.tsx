@@ -717,6 +717,8 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
         let scriptPanel: JSX.Element | null = this.state.showScriptPanel ? <ScriptPanel graphModel={this.graphModel} /> : null;
         let stateDataPanel: JSX.Element | null = this.state.showStateDataPanel ? <StateDataPanel graphModel={this.graphModel} hideStateDataPanelCallback={this.hideStateDataPanel.bind(this)} targetedRobots={this.props.commanderModel.targetedRobots} /> : null;
         // <input id="internalScale" type="range" min="0.1" max="5" value={this.state.scale} step="0.01" onChange={this.changeInternalScale.bind(this)}/>
+        // <ReactBootstrap.Button id="forceLayoutButton" bsStyle={'default'} key={"forceLayout"} style = {{width: 80}}
+        //     onClick={this.onButtonClicked.bind(this, "forceLayout")}>Force</ReactBootstrap.Button>
 
         return (
             <div id="graphEditorContainer">
@@ -726,10 +728,8 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                         onClick={this.onButtonClicked.bind(this, "addNode")}><FontAwesome name='plus'/> Node</ReactBootstrap.Button>
                     <ReactBootstrap.Button id="bubblesButton" bsStyle={'default'} key={"bubbles"} style = {{width: 80}}
                         onClick={this.onButtonClicked.bind(this, "bubbles")}>Bubbles</ReactBootstrap.Button>
-                    <ReactBootstrap.Button id="forceLayoutButton" bsStyle={'default'} key={"forceLayout"} style = {{width: 80}}
-                        onClick={this.onButtonClicked.bind(this, "forceLayout")}>Force</ReactBootstrap.Button>
                     <ReactBootstrap.Button id="ttsPanelButton" bsStyle={'default'} key={"ttsPanel"}
-                        onClick={this.onButtonClicked.bind(this, "ttsPanel")}>SavedTTSs</ReactBootstrap.Button>
+                        onClick={this.onButtonClicked.bind(this, "ttsPanel")}>SavedTTS</ReactBootstrap.Button>
                     <ReactBootstrap.Button id="scriptPanelButton" bsStyle={'default'} key={"scriptPanel"}
                         onClick={this.onButtonClicked.bind(this, "scriptPanel")}>Scripts</ReactBootstrap.Button>
                     <ReactBootstrap.Button id="stateDataPanelButton" bsStyle={'default'} key={"stateDataPanel"}
