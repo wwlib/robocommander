@@ -1,0 +1,156 @@
+{
+    "timestamp": 0,
+    "appInfo": {
+        "port": 7160,
+        "clientId": "",
+        "clientSecret": ""
+    },
+    "robots": [
+    ],
+    "romCommands": [
+      {
+        "name": "LookAt: Left",
+        "type": "lookAt",
+        "data": {
+          "angle": 0.5
+        }
+      },
+      {
+        "name": "LookAt: Center",
+        "type": "lookAt",
+        "data": {
+          "angle": 0
+        }
+      },
+      {
+        "name": "LookAt: Right",
+        "type": "lookAt",
+        "data": {
+          "angle": -0.5
+        }
+      },
+      {
+        "name": "LookAt: Behind",
+        "type": "lookAt",
+        "data": {
+          "angle": 3.14159
+        }
+      },
+      {
+        "name": "TTS: Hello",
+        "type": "tts",
+        "data": {
+          "text": "hello world"
+        }
+      },
+      {
+        "name": "Attention: IDLE",
+        "type": "attention",
+        "data": {
+          "state": "IDLE"
+        }
+      },
+      {
+        "name": "Attention: OFF",
+        "type": "attention",
+        "data": {
+          "state": "OFF"
+        }
+      },
+      {
+        "name": "ghosts",
+        "type": "tts",
+        "data": {
+          "text": "<anim name='Checking_04' nonBlocking='true'/> I'm pretty scared of ghosts"
+        }
+      },
+      {
+        "name": "Volume 1",
+        "type": "volume",
+        "data": {
+          "volume": 1
+        }
+      },
+      {
+        "name": "Volume .3",
+        "type": "volume",
+        "data": {
+          "volume": 0.3
+        }
+      },
+      {
+        "name": "Volume .5",
+        "type": "volume",
+        "data": {
+          "volume": 0.5
+        }
+      },
+      {
+        "name": "Volume .7",
+        "type": "volume",
+        "data": {
+          "volume": 0.7
+        }
+      },
+      {
+        "name": "Mute",
+        "type": "mute",
+        "data": {
+          "mute": true
+        }
+      },
+      {
+        "name": "Unmute",
+        "type": "unmute",
+        "data": {
+          "mute": false
+        }
+      },
+      {
+        "name": "Emoji: Clock",
+        "type": "tts",
+        "data": {
+          "text": "<anim name='emoji-clock-hf-01' nonBlocking='true'/>."
+        }
+      },
+      {
+        "name": "Center",
+        "type": "lookAtPosition",
+        "data": {
+          "vector": [
+            1,
+            0,
+            0.5
+          ]
+        }
+      },
+      {
+        "name": "motion ON",
+        "type": "motion",
+        "data": {
+          "state": "ON"
+        }
+      },
+      {
+        "name": "motion OFF",
+        "type": "motion",
+        "data": {
+          "state": "OFF"
+        }
+      },
+      {
+        "name": "faces ON",
+        "type": "faces",
+        "data": {
+          "state": "ON"
+        }
+      },
+      {
+        "name": "faces OFF",
+        "type": "faces",
+        "data": {
+          "state": "OFF"
+        }
+      }
+    ]
+}

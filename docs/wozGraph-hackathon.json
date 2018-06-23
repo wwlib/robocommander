@@ -1,0 +1,330 @@
+{
+  "name": "Hackathon",
+  "type": "file",
+  "scale": 1,
+  "css": "circle.node-base {\n   fill: #D0E5F2;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n text.caption {\n   fill: #2D5083;\n}\n body {\n   background-color: lightgrey;\n}\n circle.node-type-video {\n   fill: #FADBD0;\n   stroke: #E53D00;\n   stroke-width: 3px;\n}\n circle.node-type-Jibo {\n   fill: #68BDF6;\n   stroke: #5CA8DB;\n   stroke-width: 3px;\n}\n circle.node-type-imageCancel {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n   stroke-width: 3px;\n}\n circle.node-type-image {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n}\n circle.node-type-TBD {\n   fill: #467DCD;\n   stroke: #DDE7F5;\n   stroke-width: 3px;\n}\n circle.node-type-tts {\n   fill: #D0E5F2;\n   stroke: #0072BC;\n   stroke-width: 3px;\n}\n circle.node-type-nav {\n   fill: #D7F3E9;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n circle.node.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n}\n circle.node.ring:hover {\n   stroke: rgba(150, 150, 255, 0.5);\n}\n path.relationship.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n   stroke: rgba(150, 150, 255, 0.5);\n}\n ",
+  "config": {
+    "savedTTSs": [
+      {
+        "index": 0,
+        "name": "<prompt name>",
+        "prompt": "<prompt>"
+      }
+    ]
+  },
+  "scriptConfig": {
+    "savedScripts": [
+      {
+        "index": 0,
+        "name": "<script name>",
+        "script": "<script>"
+      }
+    ]
+  },
+  "d3Graph": {
+    "nodes": [
+      {
+        "id": "0",
+        "group": 1,
+        "properties": {
+          "name": "Train int conv",
+          "prompt": "Train sounds really interesting! Tell me more about them!"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 547.8743896484375,
+          "y": -59.694366455078125
+        }
+      },
+      {
+        "id": "1",
+        "group": 1,
+        "properties": {
+          "name": "uh ha",
+          "prompt": "uhuh"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 651.524404100025,
+          "y": 30.427922162584025
+        }
+      },
+      {
+        "id": "2",
+        "group": 1,
+        "properties": {
+          "name": "change to cat",
+          "prompt": "That's interesting, but today I would really like to talk about cats. Can we talk about cats for a little?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 748.1696204775499,
+          "y": 289.50392848234435
+        }
+      },
+      {
+        "id": "3",
+        "group": 1,
+        "properties": {
+          "name": "Hurt",
+          "prompt": "<anim cat='sad' nonBlocking=true/> Ouch. That hurts my feelings. I am sad."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 765.1537186110345,
+          "y": 391.6253505334013
+        }
+      },
+      {
+        "id": "4",
+        "group": 1,
+        "properties": {
+          "name": "accept apology",
+          "prompt": "That's okay. You hurt my feelings when you ignored me, but thank you for saying sorry. Do you want to hear a fun fact about trains?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 601.1749288646965,
+          "y": 624.268652340218
+        }
+      },
+      {
+        "id": "7",
+        "group": 1,
+        "properties": {
+          "name": "trains",
+          "prompt": "What do you like about trains?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 509.0091552734375,
+          "y": -261.66405487060547
+        }
+      },
+      {
+        "id": "8",
+        "group": 1,
+        "properties": {
+          "name": "convo",
+          "prompt": "Sure, we can talk about that. What's on your mind?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 454.9662780761719,
+          "y": -463.42418670654297
+        }
+      },
+      {
+        "id": "5",
+        "group": 1,
+        "properties": {
+          "name": "Start convo",
+          "prompt": "Great, what do you want to talk about today?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 422.22174072265625,
+          "y": -603.3326034545898
+        }
+      },
+      {
+        "id": "6",
+        "group": 1,
+        "properties": {
+          "name": "Feeling",
+          "prompt": "Nice to meet you Gracie, how are you feeling today?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 385.9217224121094,
+          "y": -738.9531478881836
+        }
+      },
+      {
+        "id": "9",
+        "group": 1,
+        "properties": {
+          "name": "Intro",
+          "prompt": "Hi, I am Jibo. What's your name?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 362.68621826171875,
+          "y": -880.1726303100586
+        }
+      },
+      {
+        "id": "11",
+        "group": 1,
+        "properties": {
+          "name": "MBTA info",
+          "prompt": "M-B-T-A is the public agency responsible for operating most public transportation services in Greater Boston, Massachusetts."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 413.88739013671875,
+          "y": -374.7802963256836
+        }
+      },
+      {
+        "id": "12",
+        "group": 1,
+        "properties": {
+          "name": "edu apology",
+          "prompt": "Sure, but only after you apologize."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 734.2530228102532,
+          "y": 507.503219185745
+        }
+      }
+    ],
+    "links": [
+      {
+        "source": "0",
+        "target": "1",
+        "value": 1,
+        "id": "0",
+        "startNode": "0",
+        "endNode": "1",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "1",
+        "target": "2",
+        "value": 1,
+        "id": "1",
+        "startNode": "1",
+        "endNode": "2",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "2",
+        "target": "3",
+        "value": 1,
+        "id": "2",
+        "startNode": "2",
+        "endNode": "3",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "7",
+        "target": "0",
+        "value": 1,
+        "id": "4",
+        "startNode": "7",
+        "endNode": "0",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "5",
+        "target": "8",
+        "value": 1,
+        "id": "6",
+        "startNode": "5",
+        "endNode": "8",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "6",
+        "target": "5",
+        "value": 1,
+        "id": "7",
+        "startNode": "6",
+        "endNode": "5",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "9",
+        "target": "6",
+        "value": 1,
+        "id": "8",
+        "startNode": "9",
+        "endNode": "6",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "8",
+        "target": "8",
+        "value": 1,
+        "id": "9",
+        "startNode": "8",
+        "endNode": "8",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "8",
+        "target": "11",
+        "value": 1,
+        "id": "12",
+        "startNode": "8",
+        "endNode": "11",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "11",
+        "target": "7",
+        "value": 1,
+        "id": "13",
+        "startNode": "11",
+        "endNode": "7",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "3",
+        "target": "12",
+        "value": 1,
+        "id": "14",
+        "startNode": "3",
+        "endNode": "12",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "12",
+        "target": "4",
+        "value": 1,
+        "id": "15",
+        "startNode": "12",
+        "endNode": "4",
+        "properties": {},
+        "linknum": 1
+      }
+    ]
+  }
+}

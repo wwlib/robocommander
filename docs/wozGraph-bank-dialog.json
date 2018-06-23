@@ -1,0 +1,195 @@
+{
+  "name": "dialog",
+  "type": "file",
+  "scale": 1,
+  "css": "\n      circle.node-base {\n         fill: #D0E5F2;\n         stroke: #25C086;\n         stroke-width: 3px;\n      }\n       text.caption {\n         fill: #2D5083;\n      }\n       body {\n         background-color: lightgrey;\n      }\n       circle.node-type-video {\n         fill: #FADBD0;\n         stroke: #E53D00;\n         stroke-width: 3px;\n      }\n       circle.node-type-ask {\n         fill: #FADBD0;\n         stroke: #E53D00;\n         stroke-width: 3px;\n      }\n       circle.node-type-imageCancel {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n         stroke-width: 3px;\n      }\n       circle.node-type-image {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n      }\n       circle.node-type-launch {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n      }\n       circle.node-type-tts {\n         fill: #D0E5F2;\n         stroke: #0072BC;\n         stroke-width: 3px;\n      }\n       circle.node-type-nav {\n         fill: #D7F3E9;\n         stroke: #25C086;\n         stroke-width: 3px;\n      }\n       circle.node.overlay:hover {\n         fill: rgba(150, 150, 255, 0.5);\n      }\n       circle.node.ring:hover {\n         stroke: rgba(150, 150, 255, 0.5);\n      }\n       path.relationship.overlay:hover {\n         fill: rgba(150, 150, 255, 0.5);\n         stroke: rgba(150, 150, 255, 0.5);\n     }\n",
+  "config": {
+    "savedTTSs": [
+      {
+        "index": 0,
+        "name": "<prompt name>",
+        "prompt": "<prompt>"
+      }
+    ]
+  },
+  "scriptConfig": {
+    "savedScripts": [
+      {
+        "index": 0,
+        "name": "<script name>",
+        "script": "<script>"
+      }
+    ]
+  },
+  "d3Graph": {
+    "nodes": [
+      {
+        "id": "0",
+        "group": 1,
+        "properties": {
+          "name": "Intro",
+          "prompt": "So, do you already have an account with us?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 518.2421569824219,
+          "y": 341.9968566894531
+        }
+      },
+      {
+        "id": "1",
+        "group": 1,
+        "properties": {
+          "name": "Yes",
+          "prompt": "Great, what is your account number?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 368.1771545410156,
+          "y": 451.92816162109375
+        }
+      },
+      {
+        "id": "2",
+        "group": 1,
+        "properties": {
+          "name": "No",
+          "prompt": "OK. Would you like to open an account today?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 664.8172912597656,
+          "y": 444.9483947753906
+        }
+      },
+      {
+        "id": "3",
+        "group": 1,
+        "properties": {
+          "name": "Yes",
+          "prompt": "Great. To get started, please tell me your mobile number."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 557.8140563964844,
+          "y": 610.9761657714844
+        }
+      },
+      {
+        "id": "4",
+        "group": 1,
+        "properties": {
+          "name": "No",
+          "prompt": "Would you like to learn about investment opportunities?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 773.4028015136719,
+          "y": 599.3160705566406
+        }
+      },
+      {
+        "id": "5",
+        "group": 1,
+        "properties": {
+          "name": "Help",
+          "prompt": "How can I help you?"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 860.2977600097656,
+          "y": 743.3532409667969
+        }
+      },
+      {
+        "id": "6",
+        "group": 1,
+        "properties": {
+          "name": "Code",
+          "prompt": "OK. Now please show me the code I just texted you."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 470.91552734375,
+          "y": 750.2518615722656
+        }
+      }
+    ],
+    "links": [
+      {
+        "source": "0",
+        "target": "1",
+        "value": 1,
+        "id": "0",
+        "startNode": "0",
+        "endNode": "1",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "2",
+        "value": 1,
+        "id": "1",
+        "startNode": "0",
+        "endNode": "2",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "2",
+        "target": "3",
+        "value": 1,
+        "id": "2",
+        "startNode": "2",
+        "endNode": "3",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "2",
+        "target": "4",
+        "value": 1,
+        "id": "3",
+        "startNode": "2",
+        "endNode": "4",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "4",
+        "target": "5",
+        "value": 1,
+        "id": "4",
+        "startNode": "4",
+        "endNode": "5",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "3",
+        "target": "6",
+        "value": 1,
+        "id": "5",
+        "startNode": "3",
+        "endNode": "6",
+        "properties": {},
+        "linknum": 1
+      }
+    ]
+  }
+}

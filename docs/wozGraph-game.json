@@ -1,0 +1,198 @@
+{
+  "name": "game",
+  "type": "file",
+  "scale": 1,
+  "css": "circle.node-base {\n   fill: #D0E5F2;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n text.caption {\n   fill: #2D5083;\n}\n body {\n   background-color: lightgrey;\n}\n circle.node-type-video {\n   fill: #FADBD0;\n   stroke: #E53D00;\n   stroke-width: 3px;\n}\n circle.node-type-ask {\n   fill: #FADBD0;\n   stroke: #E53D00;\n   stroke-width: 3px;\n}\n circle.node-type-Jibo {\n   fill: #68BDF6;\n   stroke: #5CA8DB;\n   stroke-width: 3px;\n}\n circle.node-type-imageCancel {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n   stroke-width: 3px;\n}\n circle.node-type-image {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n}\n circle.node-type-launch {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n}\n circle.node-type-TBD {\n   fill: #467DCD;\n   stroke: #DDE7F5;\n   stroke-width: 3px;\n}\n circle.node-type-tts {\n   fill: #D0E5F2;\n   stroke: #0072BC;\n   stroke-width: 3px;\n}\n circle.node-type-nav {\n   fill: #D7F3E9;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n circle.node.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n}\n circle.node.ring:hover {\n   stroke: rgba(150, 150, 255, 0.5);\n}\n path.relationship.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n   stroke: rgba(150, 150, 255, 0.5);\n}\n ",
+  "config": {
+    "savedTTSs": [
+      {
+        "index": 0,
+        "name": "<prompt name>",
+        "prompt": "<prompt>"
+      }
+    ]
+  },
+  "scriptConfig": {
+    "savedScripts": [
+      {
+        "index": 0,
+        "name": "initGame",
+        "script": "if (!initialized) {\n  var game = {};\n  game.setting = \"You are at the entrance to a mysterious valley\";\n  game.prompt = \"Will you continue or quit?\";\n  if (!player) {\n    var player = {name: \"\", inventory: []};\n  }\n  var initialized = true;\n}"
+      },
+      {
+        "index": 1,
+        "name": "getPlayer",
+        "script": "if (!player) {\n  var player = {name: \"\", inventory: []};\n}\nif (user && user != \"Someone\") {\n  player.name = user;\n} "
+      },
+      {
+        "index": 2,
+        "name": "getGameCommand",
+        "script": "if (gameCommand) {\n  game.command = gameCommand;\n} else {\n  game.command = \"\";\n}"
+      }
+    ]
+  },
+  "d3Graph": {
+    "nodes": [
+      {
+        "id": "0",
+        "group": 1,
+        "properties": {},
+        "labels": [
+          "launch"
+        ],
+        "position": {
+          "x": 624,
+          "y": 146
+        }
+      },
+      {
+        "id": "1",
+        "group": 1,
+        "properties": {
+          "name": "Init",
+          "scriptName": "initGame",
+          "prompt": "OK. Let's get started ${player.name}, ${game.setting}, ${game.prompt}",
+          "context": "gameCommands"
+        },
+        "labels": [
+          "ask"
+        ],
+        "position": {
+          "x": 488,
+          "y": 284
+        }
+      },
+      {
+        "id": "2",
+        "group": 1,
+        "properties": {
+          "name": "Inventory",
+          "scriptName": "initGame",
+          "prompt": "OK ${player.name}. I checked and you don't have anything yet."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 776,
+          "y": 318
+        }
+      },
+      {
+        "id": "3",
+        "group": 1,
+        "properties": {
+          "name": "Good",
+          "scriptName": "getGameCommand",
+          "prompt": "good choice. let's ${game.command}"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 307,
+          "y": 471
+        }
+      },
+      {
+        "id": "4",
+        "group": 1,
+        "properties": {
+          "name": "OK",
+          "prompt": "OK"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 679,
+          "y": 496
+        }
+      },
+      {
+        "id": "5",
+        "group": 1,
+        "properties": {
+          "name": "Play",
+          "scriptName": "getPlayer",
+          "prompt": "Hi ${player.name}. Do you want to play a game?"
+        },
+        "labels": [
+          "ask"
+        ],
+        "position": {
+          "x": 378,
+          "y": 144
+        }
+      }
+    ],
+    "links": [
+      {
+        "source": "0",
+        "target": "1",
+        "value": 1,
+        "id": "0",
+        "type": "launchGame",
+        "startNode": "0",
+        "endNode": "1",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "2",
+        "value": 1,
+        "id": "1",
+        "type": "launchGameInventory",
+        "startNode": "0",
+        "endNode": "2",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "1",
+        "target": "3",
+        "value": 1,
+        "id": "2",
+        "type": "gameCommand",
+        "startNode": "1",
+        "endNode": "3",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "1",
+        "target": "4",
+        "value": 1,
+        "id": "3",
+        "type": "Default Fallback Intent",
+        "startNode": "1",
+        "endNode": "4",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "5",
+        "value": 1,
+        "id": "4",
+        "type": "launchItsMe",
+        "startNode": "0",
+        "endNode": "5",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "5",
+        "target": "1",
+        "value": 1,
+        "id": "5",
+        "type": "answerYes",
+        "startNode": "5",
+        "endNode": "1",
+        "properties": {},
+        "linknum": 1
+      }
+    ]
+  }
+}

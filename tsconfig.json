@@ -1,0 +1,23 @@
+{
+    "extends": "./node_modules/electron-webpack/tsconfig-base.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "typeRoots": [
+            "node_modules/@jibo",
+            "node_modules/@jibo/command-protocol/typings",
+            "node_modules/@types"
+        ],
+        "types": ["node", "command-protocol", "command-requester"]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "css",
+        "data",
+        "dist",
+        "fonts",
+        "hide",
+        "node_modules"
+    ]
+}

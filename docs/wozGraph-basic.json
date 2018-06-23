@@ -1,0 +1,160 @@
+{
+  "name": "basic",
+  "type": "file",
+  "scale": 1,
+  "css": " circle.node-base {\n   fill: #D0E5F2;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n text.caption {\n   fill: #2D5083;\n}\n body {\n   background-color: lightgrey;\n}\n circle.node-type-video {\n   fill: #FADBD0;\n   stroke: #E53D00;\n   stroke-width: 3px;\n}\n circle.node-type-ask {\n   fill: #FADBD0;\n   stroke: #E53D00;\n   stroke-width: 3px;\n}\n circle.node-type-imageCancel {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n   stroke-width: 3px;\n}\n circle.node-type-image {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n}\n circle.node-type-launch {\n   fill: #FCF1D0;\n   stroke: #F0B500;\n}\n circle.node-type-tts {\n   fill: #D0E5F2;\n   stroke: #0072BC;\n   stroke-width: 3px;\n}\n circle.node-type-nav {\n   fill: #D7F3E9;\n   stroke: #25C086;\n   stroke-width: 3px;\n}\n circle.node.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n}\n circle.node.ring:hover {\n   stroke: rgba(150, 150, 255, 0.5);\n}\n path.relationship.overlay:hover {\n   fill: rgba(150, 150, 255, 0.5);\n   stroke: rgba(150, 150, 255, 0.5);\n}\n ",
+  "config": {
+    "savedTTSs": [
+      {
+        "index": 0,
+        "name": "<prompt name>",
+        "prompt": "<prompt>"
+      }
+    ]
+  },
+  "scriptConfig": {
+    "savedScripts": [
+      {
+        "index": 0,
+        "name": "<script name>",
+        "script": "<script>"
+      }
+    ]
+  },
+  "d3Graph": {
+    "nodes": [
+      {
+        "id": "0",
+        "group": 1,
+        "properties": {
+          "name": "Hello",
+          "prompt": "Hello world"
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 612,
+          "y": 355
+        }
+      },
+      {
+        "id": "1",
+        "group": 1,
+        "properties": {
+          "name": "Center",
+          "vector": "[1, 0, 0.5]"
+        },
+        "labels": [
+          "lookAt"
+        ],
+        "position": {
+          "x": 619,
+          "y": 517
+        }
+      },
+      {
+        "id": "2",
+        "group": 1,
+        "properties": {
+          "name": "Back",
+          "vector": "[-1, 0, 0.5]"
+        },
+        "labels": [
+          "lookAt"
+        ],
+        "position": {
+          "x": 612,
+          "y": 223
+        }
+      },
+      {
+        "id": "3",
+        "group": 1,
+        "properties": {
+          "name": "Left",
+          "vector": "[0, 1, 0.5]"
+        },
+        "labels": [
+          "lookAt"
+        ],
+        "position": {
+          "x": 422,
+          "y": 356
+        }
+      },
+      {
+        "id": "4",
+        "group": 1,
+        "properties": {
+          "name": "Right",
+          "vector": "[0, -1, 0.5]"
+        },
+        "labels": [
+          "lookAt"
+        ],
+        "position": {
+          "x": 821,
+          "y": 348
+        }
+      },
+      {
+        "id": "5",
+        "group": 1,
+        "properties": {
+          "name": "Reset",
+          "prompt": "<anim name='Confident_02' nonBlocking='true' />."
+        },
+        "labels": [
+          "tts"
+        ],
+        "position": {
+          "x": 281,
+          "y": 221
+        }
+      }
+    ],
+    "links": [
+      {
+        "source": "0",
+        "target": "1",
+        "value": 1,
+        "id": "0",
+        "startNode": "0",
+        "endNode": "1",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "2",
+        "value": 1,
+        "id": "1",
+        "startNode": "0",
+        "endNode": "2",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "3",
+        "value": 1,
+        "id": "2",
+        "startNode": "0",
+        "endNode": "3",
+        "properties": {},
+        "linknum": 1
+      },
+      {
+        "source": "0",
+        "target": "4",
+        "value": 1,
+        "id": "3",
+        "startNode": "0",
+        "endNode": "4",
+        "properties": {},
+        "linknum": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+#appInfoPanel {
+  position: absolute;
+  background-color: lightblue;
+  top: 60px;
+  left: 10px;
+}
+
+#robotsPanel {
+  position: absolute;
+  background-color: lightblue;
+  top: 60px;
+  left: 10px;
+}
+
+#commandsPanel {
+  position: absolute;
+  background-color: lightblue;
+  top: 60px;
+  left: 20px;
+}
+
+#wozGraphEditor {
+  position: absolute;
+  background-color: lightblue;
+  top: 60px;
+  left: 20px;
+}
+
+#blocklyEditor {
+  position: absolute;
+  background-color: lightblue;
+  top: 60px;
+  left: 20px;
+}
+
+.commander-panel {
+    z-index: 200;
+    position: absolute;
+    /* right: 10px; */
+    width: 1024px;
+    top: 60px;
+    padding: 6px;
+    background-color: #f7f7f7;
+}
+
+#commanderButtons {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 6px;
+    background-color: grey;
+    color: white;
+}
