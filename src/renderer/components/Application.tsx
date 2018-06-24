@@ -47,7 +47,7 @@ export default class Application extends React.Component < ApplicationProps, App
     }
 
     onLogoClicked(): void {
-        shell.openExternal('https://robocommander.io');
+        shell.openExternal('http://robocommander.io');
     }
 
     onButtonClicked(action: string): void {
