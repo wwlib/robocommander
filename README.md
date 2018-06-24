@@ -10,7 +10,9 @@ Robo Commander is ideal for real-time, human-operated Woz (Wizard of Oz) remote 
 
 For developers, Robo Commander includes TypeScript classes that provide an easy way to prototype NLU-driven Remote Operation Mode (ROM) skills.
 
+### Getting Started
 
+Building RoboCommander requires node v8.11.2 (or newer)
 
 The use of the [yarn](https://yarnpkg.com/) package manager is **strongly** recommended, as opposed to using `npm`.
 
