@@ -174,7 +174,7 @@ export default class TTSPanel extends React.Component<TTSPanelProps, TTSPanelSta
                             <tr>
                             <td>name:</td>
                             <td>
-                            <input name="ttsName" value={this.state.activeTTS.name} onChange={this.handleInputChange.bind(this)} style={{width: 400}} />
+                            <input name="promptName" value={this.state.activeTTS.name} onChange={this.handleInputChange.bind(this)} style={{width: 400}} />
                             </td>
                             </tr>
                             <tr>
