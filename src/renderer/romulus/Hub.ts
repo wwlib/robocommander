@@ -68,7 +68,7 @@ export default class Hub extends EventEmitter {
     }
 
     onRobotConnected(): void {
-        console.log(`Hub: onRobotConnected: ${this.robot.serialName}`, this.robot.requester);
+        console.log(`HUB: onRobotConnected: ${this.robot.serialName}`, this.robot.requester);
         if (this.robot.requester) {
             if (this.robot.appInfo) {
                 PersistenceManager.Instance.connect(this.robot.appInfo, true);
@@ -102,7 +102,7 @@ export default class Hub extends EventEmitter {
     }
 
     registerSkill(skill: Skill): void {
-        console.log(`Hub: registerSkill: ${this.robot.serialName}`, skill);
+        console.log(`HUB: registerSkill: ${this.robot.serialName}`, skill);
         this.skillMap.set(skill.id, skill);
         this.launchIntentMap.set(skill.launchIntent, skill);
     }
@@ -114,7 +114,7 @@ export default class Hub extends EventEmitter {
 
     onHotwordEvent(hotwordData: HotwordData): void {
         // get intent from asrTranscript
-        console.log(`Hub: onHotwordEvent: ${this.robot.serialName}`, hotwordData);
+        console.log(`HUB: onHotwordEvent: ${this.robot.serialName}`, hotwordData);
         let userId: string = 'someone';
         let asr: string = hotwordData.listenResultEvent.Speech;
         this.getLaunchIntent(asr)
@@ -124,18 +124,19 @@ export default class Hub extends EventEmitter {
                     let launchId: string = `${new Date().getTime()}`;
                     let skill: Skill | undefined = this.launchIntentMap.get(launchIntent);
                     let robotIntentData: RobotIntentData = {nluType: nluData.nluType, asr: asr, intent: launchIntent, launchId: launchId, nluData: nluData, userId: userId};
+                    console.log(`HUB: onHotwordEvent: robotIntentData`, robotIntentData);
                     if (skill) {
                         skill.launch(robotIntentData);
                         skill.running = true;
                         PersistenceManager.Instance.persistLaunchIntent(this.robot.name, userId, launchIntent, launchId);
                     } else {
-                        console.log(`Hub: onHotwordEvent: passing to robot onLaunchEvent: `, robotIntentData);
+                        console.log(`HUB: onHotwordEvent: passing to robot onLaunchEvent: `, robotIntentData);
                         this.robot.onLaunchIntent(robotIntentData);
                     }
                 }
             })
             .catch((err: any) => {
-                console.log(`Hub: onHotwordEvent: error: `, err);
+                console.log(`HUB: onHotwordEvent: error: `, err);
             });
     }
 
@@ -149,7 +150,7 @@ export default class Hub extends EventEmitter {
     }
 
     getIntent(asr: string, contexts: string[], nluType: string): Promise<NluData> {
-        console.log(`Hub: getIntent: asr: ${asr}, ${nluType}, contexts: `, contexts);
+        console.log(`HUB: getIntent: asr: ${asr}, ${nluType}, contexts: `, contexts);
         return new Promise((resolve, reject) => {
             let query: string = asr;
             let nluController: NLUController | undefined = undefined;
@@ -172,6 +173,7 @@ export default class Hub extends EventEmitter {
                            intent: intentAndEntities.intent,
                            parameters: intentAndEntities.entities
                        }
+                       console.log(`HUB: getIntent: nluData`, nluData);
                        resolve(nluData);
                     })
                     .catch((err: any) => {
@@ -184,6 +186,7 @@ export default class Hub extends EventEmitter {
                     intent: '',
                     parameters: {}
                 }
+                console.log(`HUB: getIntent: NO NLU DEFINED: nluData`, nluData);
                 resolve(nluData)
             }
         });

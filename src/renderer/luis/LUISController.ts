@@ -72,10 +72,10 @@ export default class LUISController extends NLUController {
             request(luisRequest,
                 ((error: string, response: any, body: any) => {
                     if (error) {
-                        // console.log(error);
+                        console.log(`LUISController: call: error:`, response, error);
                         reject(error);
                     } else {
-                        // console.log(response, body);
+                        console.log(`LUISController: call:`, response, error);
                         let body_obj: any = JSON.parse(body);
                         resolve(body_obj);
                     }
@@ -106,8 +106,14 @@ export default class LUISController extends NLUController {
             this.call(query)
                 .then((response: LUISResponse) => {
                     let intentAndEntities: NLUIntentAndEntities = {
-                        intent: response.topScoringIntent.intent,
-                        entities: this.getEntitiesWithResponse(response)
+                        intent: '',
+                        entities: undefined
+                    }
+                    if (response && response.topScoringIntent) {
+                        intentAndEntities = {
+                            intent: response.topScoringIntent.intent,
+                            entities: this.getEntitiesWithResponse(response)
+                        }
                     }
                     resolve(intentAndEntities);
                 })
