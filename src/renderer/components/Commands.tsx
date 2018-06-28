@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from './titlebar/Titlebar';
 
 import * as three from 'three';
 console.log(three);
@@ -14,7 +15,7 @@ import ModalCommandInfo from './ModalCommandInfo';
 
 let WebMidi = require('webmidi');
 
-export interface CommandsProps { model: Model }
+export interface CommandsProps { id: string, model: Model, onClosePanel: any }
 export interface CommandsState { lastUpdateTime: number, value: string, targetedRobots: Robot[], commandList: RomCommand[], showModal: boolean, modalCommand: RomCommand, editMode: string, deleteMode: boolean }
 
 export default class Commands extends React.Component<CommandsProps, CommandsState> {
@@ -36,6 +37,7 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
 
     constructor(props: any) {
         super(props);
+        console.log(`Commands: constructor`)
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmitTTS = this.handleSubmitTTS.bind(this);
         this.setupWebMidi();
@@ -189,6 +191,14 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
         this.props.model.robots.on('updateRobots', this._updateRobotsHandler);
     }
 
+    componentDidMount() {
+        this.props.model.addPanelWithId(this.props.id);
+    }
+
+    componentWillUnmount() {
+        this.props.model.robots.removeListener('updateRobots', this._updateRobotsHandler);
+    }
+
     onUpdateRobots(robots: Robots): void {
         console.log(`Commands: onUpdateRobots`);
         this.setState({lastUpdateTime: new Date().getTime()});
@@ -203,10 +213,6 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
       let command: RomCommand = new RomCommand("", "tts", { text: this.state.value });
       this.sendCommand(command);
       event.preventDefault();
-    }
-
-    handleClick(event: any) {
-        event.target.bsStyle = 'primary';
     }
 
     sendCommandWithName(commandName: string) {
@@ -235,9 +241,25 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
         this.props.model.sendRomCommand(command);
     }
 
-    onPanelClick(): void {
+    handleClick(e: any): void {
         // console.log(`onPanelClick:`);
-        this.props.model.bringPanelToFront('commandsPanel');
+        this.props.model.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
     }
 
     render() {
@@ -255,7 +277,16 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
         // <Checkbox label={'Cycle Robots'} handleCheckboxChange={this.handleCheckboxChange.bind(this)}/>
 
         return (
-            <Draggable handle=".handle"><div className="commander-panel well" id="commandsPanel" onClick={this.onPanelClick.bind(this)}>
+            <Draggable handle=".handle">
+                    <div className="commander-panel well" id={this.props.id}>
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
                     <h2 className="pull-left handle" style={{marginBottom:20}}>Commands</h2>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped condensed hover>

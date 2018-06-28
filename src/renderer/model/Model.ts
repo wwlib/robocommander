@@ -6,6 +6,7 @@ import {RobotIntent} from './Robot';
 import RomCommands from './RomCommands';
 import RomCommand from './RomCommand';
 import Config from "./Config";
+import WindowComponent from './WindowComponent';
 
 let configDataTemplate: any = require('../../../data/robocommander-template.json');
 
@@ -144,24 +145,39 @@ export default class Model extends EventEmitter {
 
     }
 
-    bringPanelToFront(panelId: string): void {
-        this.addPanelWithId(panelId);
-        let panels: string[] = Array.from( this.panelZIndexMap.keys() );
-        let element: any | undefined;
-        panels.forEach((id: string) => {
-            element = document.getElementById(id)
-            if (element && element.style) {
-                element.style.zIndex = `200`;
-            }
-        });
-        element = document.getElementById(panelId);
-        if (element && element.style) {
-            element.style.zIndex = `201`;
+    getPanelOpenedWithId(panelId: string): boolean {
+        let result: boolean = false;
+        let window: WindowComponent | undefined = WindowComponent.getWindowComponentWithId(panelId);
+        if (window) {
+            result = window.opened;
+        }
+        return result;
+    }
+
+    togglePanelOpenedWithId(panelId: string): boolean {
+        let window: WindowComponent | undefined = WindowComponent.getWindowComponentWithId(panelId);
+        if (!window) {
+            return true; // open the panel if it is not yet instantiated
+        } else {
+            return window.toggleOpened();
         }
     }
 
-    addPanelWithId(panelId: string): void {
-        this.panelZIndexMap.set(panelId, 200);
+    openPanelWithId(panelId: string): void {
+        WindowComponent.openWithId(panelId);
+    }
+
+    closePanelWithId(panelId: string): void {
+        WindowComponent.closeWithId(panelId);
+    }
+
+    bringPanelToFront(panelId: string): void {
+        WindowComponent.addWindowWithId(panelId);
+        WindowComponent.bringWindowToFrontWithId(panelId);
+    }
+
+    addPanelWithId(panelId: string, x: number = 0, y: number = 0, z: number = 0): void {
+        WindowComponent.addWindowWithId(panelId, x, y, z);
     }
 
     get targetedRobots(): Robot[] {

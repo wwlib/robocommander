@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from './titlebar/Titlebar';
 
 import Robots from '../model/Robots';
 import Robot from '../model/Robot';
@@ -8,7 +9,7 @@ import AppInfo from '../model/AppInfo';
 import Model from '../model/Model';
 import ModalRobotInfo from './ModalRobotInfo';
 
-export interface RobotListProps { robots: Robots; appInfo: AppInfo, model: Model }
+export interface RobotListProps { id: string, robots: Robots; appInfo: AppInfo, model: Model, onClosePanel: any }
 export interface RobotListState {
     lastUpdateTime: number;
     statusMessages: string;
@@ -28,8 +29,11 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
 
     componentWillMount() {
         this.setState({showModal: false, lastUpdateTime: new Date().getTime(), statusMessages: ''});
-
         this.props.robots.on('updateRobots', this._updateRobotsHandler);
+    }
+
+    componentDidMount() {
+        this.props.model.addPanelWithId(this.props.id);
     }
 
     componentWillUnmount() {
@@ -41,13 +45,38 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
         this.setState({lastUpdateTime: new Date().getTime(), statusMessages: this.props.robots.statusMessages});
     }
 
-    onPanelClick(): void {
+    handleClick(e: any): void {
         // console.log(`onPanelClick:`);
-        this.props.model.bringPanelToFront('robotsPanel');
+        this.props.model.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
     }
 
     render() {
-        return  <Draggable handle=".handle"><div className="commander-panel well" id="robotsPanel" onClick={this.onPanelClick.bind(this)}>
+        return  <Draggable handle=".handle">
+                        <div className="commander-panel well" id="robotsPanel">
+                        <Titlebar
+                            draggable={true}
+                            handleClick={this.handleClick.bind(this)}
+                            handleClose={this.handleClose.bind(this)}
+                            handleMinimize={this.handleMinimize.bind(this)}
+                            handleMaximize={this.handleMaximize.bind(this)}
+                            handleFullScreen={this.handleFullScreen.bind(this)}>
+                        </Titlebar>
                         <h2 className="pull-left handle" style={{marginBottom:20}}>Robot List</h2>
                         <div className="clearfix"></div>
                         <ReactBootstrap.Table striped condensed hover>
