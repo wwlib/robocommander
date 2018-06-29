@@ -46,21 +46,31 @@ export default class Application extends React.Component < ApplicationProps, App
         });
     }
 
+    componentDidMount() {
+        console.log(`Application: componentDidMount`);
+        this.props.model.addPanelWithId('appInfoPanel', 10, 60);
+        this.props.model.addPanelWithId('robotsPanel', 10, 60);
+        this.props.model.addPanelWithId('commandsPanel', 10, 60);
+    }
+
     onLogoClicked(): void {
         shell.openExternal('http://robocommander.io');
     }
 
     onButtonClicked(action: string): void {
-        console.log(`onButtonClicked: ${action}`);
+        // console.log(`onButtonClicked: ${action}`);
         switch (action) {
             case 'appInfo':
-                this.setState(prevState => ({showAppInfoPanel: !prevState.showAppInfoPanel}));
+                this.setState({showAppInfoPanel: this.props.model.togglePanelOpenedWithId('appInfoPanel')});
+                this.props.model.bringPanelToFront('appInfoPanel');
                 break;
             case 'robots':
-                this.setState(prevState => ({showRobotsPanel: !prevState.showRobotsPanel}));
+                this.setState({showRobotsPanel: this.props.model.togglePanelOpenedWithId('robotsPanel')});
+                this.props.model.bringPanelToFront('robotsPanel');
                 break;
             case 'commands':
-                this.setState(prevState => ({showCommandsPanel: !prevState.showCommandsPanel}));
+                this.setState({showCommandsPanel: this.props.model.togglePanelOpenedWithId('commandsPanel')});
+                this.props.model.bringPanelToFront('commandsPanel');
                 break;
             case 'wozGraph':
                 this.setState(prevState => ({showWozGraphEditor: !prevState.showWozGraphEditor}));
@@ -77,10 +87,25 @@ export default class Application extends React.Component < ApplicationProps, App
         }
     }
 
+    onClosePanel(id: string): void {
+        this.props.model.closePanelWithId(id);
+        switch(id) {
+            case 'appInfoPanel':
+                this.setState({showAppInfoPanel: false});
+                break;
+            case 'robotsPanel':
+                this.setState({showRobotsPanel: false});
+                break;
+            case 'commandsPanel':
+                this.setState({showCommandsPanel: false});
+                break;
+        }
+    }
+
     render() {
-        let appInfoPanel: JSX.Element | null = this.state.showAppInfoPanel ? <AppInfoForm appInfo={this.props.model.appInfo} model={this.props.model}/> : null;
-        let robotsPanel: JSX.Element | null = this.state.showRobotsPanel ? <RobotList robots={this.props.model.robots} appInfo={this.props.model.appInfo} model={this.props.model}/> : null;
-        let commandsPanel: JSX.Element | null = this.state.showCommandsPanel ? <Commands model={this.props.model} /> : null;
+        let appInfoPanel: JSX.Element | null = this.state.showAppInfoPanel ? <AppInfoForm id='appInfoPanel' appInfo={this.props.model.appInfo} model={this.props.model} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let robotsPanel: JSX.Element | null = this.state.showRobotsPanel ? <RobotList id='robotsPanel' robots={this.props.model.robots} appInfo={this.props.model.appInfo} model={this.props.model} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let commandsPanel: JSX.Element | null = this.state.showCommandsPanel ? <Commands id='commandsPanel' model={this.props.model} onClosePanel={this.onClosePanel.bind(this)}/> : null;
         let wozGraphEditor: JSX.Element | null = this.state.showWozGraphEditor ? <GraphEditor commanderModel={this.props.model}/>: null;
         let blocklyEditor: JSX.Element | null = null; //this.state.showBlocklyEditor ? <BlocklyEditor model={this.props.model} /> : null;
         // <ReactBootstrap.Button bsStyle={'default'} key={"blockly"} style = {{width: 100}}

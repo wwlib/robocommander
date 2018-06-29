@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from '../titlebar/Titlebar';
 
 import GraphModel from './model/GraphModel';
 
-export interface NodePanelProps { graphModel: GraphModel, hideNodePanelCallback: any}
+export interface NodePanelProps { id: string, graphModel: GraphModel, onClosePanel: any}
 export interface NodePanelState { type: string, properties: string, lastUpdateTime: number }
 
 export default class NodePanel extends React.Component<NodePanelProps, NodePanelState> {
@@ -36,7 +37,7 @@ export default class NodePanel extends React.Component<NodePanelProps, NodePanel
     }
 
     componentDidMount() {
-
+        this.props.graphModel.addPanelWithId(this.props.id);
     }
 
     componentWillUnmount() {
@@ -74,16 +75,46 @@ export default class NodePanel extends React.Component<NodePanelProps, NodePanel
             case 'cancel':
                 break;
         }
-        this.props.hideNodePanelCallback();
+        this.props.onClosePanel(this.props.id);
     }
 
     save(): void {
         this.props.graphModel.saveActiveNode(this.state.type, this.state.properties, this._oldLabel);
     }
 
+    handleClick(e: any): void {
+        // console.log(`onPanelClick:`);
+        this.props.graphModel.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
+    }
+
     render() {
         let nodeId: string = this.props.graphModel.activeNode ? this.props.graphModel.activeNode.id : ""
-        return  <Draggable handle=".handle"><div className="editor-panel well" id="nodeEditorPanel">
+        return  <Draggable handle=".handle">
+                    <div className="editor-panel well" id="nodeEditorPanel">
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
                     <h4 className="pull-left handle" style={{marginBottom:20}}>Node [{nodeId}]</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 400}}>

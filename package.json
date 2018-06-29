@@ -17,8 +17,10 @@
   "dependencies": {
     "@jibo/apptoolkit-library": "github:wwlib/ww-apptoolkit-node-library#look-protocol-fix",
     "@types/three": "^0.91.8",
+    "classnames": "^2.2.6",
     "crypto": "^1.0.1",
     "d3": "^4.12.0",
+    "defaultcss": "^1.1.1",
     "dialogflow": "^0.5.0",
     "ensureDir": "^1.0.6",
     "font-awesome": "^4.7.0",

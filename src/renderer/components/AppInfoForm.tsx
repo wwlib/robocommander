@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from './titlebar/Titlebar';
 
 const PasswordMask = require('react-password-mask');
 import Select from 'react-select';
 import AppInfo from '../model/AppInfo';
 import Model from '../model/Model';
 
-export interface AppInfoFormProps { appInfo: AppInfo, model: Model}
+export interface AppInfoFormProps { id: string, appInfo: AppInfo, model: Model, onClosePanel: any }
 export interface AppInfoFormState {
     port: number;
     clientId: string;
@@ -50,6 +51,10 @@ export default class AppInfoForm extends React.Component<AppInfoFormProps, AppIn
             neo4j_user: this.props.appInfo.neo4j_user,
             neo4j_password: this.props.appInfo.neo4j_password
         });
+    }
+
+    componentDidMount() {
+        this.props.model.addPanelWithId(this.props.id);
     }
 
     handleInputChange(event: any) {
@@ -103,9 +108,25 @@ export default class AppInfoForm extends React.Component<AppInfoFormProps, AppIn
         this.setState(prevState => { this.props.appInfo.nluDefault = selectedOption.value; return {nluDefault: selectedOption.value} });
     }
 
-    onPanelClick(): void {
+    handleClick(e: any): void {
         // console.log(`onPanelClick:`);
-        this.props.model.bringPanelToFront('appInfoPanel');
+        this.props.model.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
     }
 
     render() {
@@ -115,8 +136,17 @@ export default class AppInfoForm extends React.Component<AppInfoFormProps, AppIn
             {value: 'dialogflow', label: 'Dialogflow'}
         ]
 
-        return  <Draggable handle=".handle"><div className="commander-panel well" id="appInfoPanel" onClick={this.onPanelClick.bind(this)}>
-                    <h2 className="pull-left handle" style={{marginBottom:20}}>Robot Commander Info</h2>
+        return  <Draggable handle=".handle">
+                    <div className="commander-panel well" id="appInfoPanel" ref="appInfoPanel">
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
+                    <h4 className="pull-left handle" style={{marginBottom:20}}>RoboCommander Info</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 900}}>
                         <tbody>
