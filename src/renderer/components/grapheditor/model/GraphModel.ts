@@ -20,6 +20,7 @@ import {
 import GraphConfig, { SavedTTS } from './GraphConfig';
 import ScriptConfig, { SavedScript } from './ScriptConfig';
 import ModelToDot from './ModelToDot';
+import WindowComponent from './WindowComponent';
 
 import Robot from '../../../model/Robot';
 
@@ -549,7 +550,7 @@ export default class GraphModel extends EventEmitter {
 
     getActiveRelationshipLabel(): string {
         let label: string = '';
-        if (this._activeRelationship) {
+        if (this._activeRelationship && this._activeRelationship.relationshipType) {
             label = this._activeRelationship.relationshipType;
         }
         return label;
@@ -666,6 +667,43 @@ export default class GraphModel extends EventEmitter {
             }
             this.graphSet.saveGraph(graph);
         }
+    }
+
+    // Window Management
+
+    getPanelOpenedWithId(panelId: string): boolean {
+        let result: boolean = false;
+        let window: WindowComponent | undefined = WindowComponent.getWindowComponentWithId(panelId);
+        if (window) {
+            result = window.opened;
+        }
+        return result;
+    }
+
+    togglePanelOpenedWithId(panelId: string): boolean {
+        let window: WindowComponent | undefined = WindowComponent.getWindowComponentWithId(panelId);
+        if (!window) {
+            return true; // open the panel if it is not yet instantiated
+        } else {
+            return window.toggleOpened();
+        }
+    }
+
+    openPanelWithId(panelId: string): void {
+        WindowComponent.openWithId(panelId);
+    }
+
+    closePanelWithId(panelId: string): void {
+        WindowComponent.closeWithId(panelId);
+    }
+
+    bringPanelToFront(panelId: string): void {
+        WindowComponent.addWindowWithId(panelId);
+        WindowComponent.bringWindowToFrontWithId(panelId);
+    }
+
+    addPanelWithId(panelId: string, x: number = 0, y: number = 0, z: number = 0): void {
+        WindowComponent.addWindowWithId(panelId, x, y, z);
     }
 
     dispose(): void {

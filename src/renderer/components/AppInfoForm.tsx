@@ -146,7 +146,7 @@ export default class AppInfoForm extends React.Component<AppInfoFormProps, AppIn
                         handleMaximize={this.handleMaximize.bind(this)}
                         handleFullScreen={this.handleFullScreen.bind(this)}>
                     </Titlebar>
-                    <h2 className="pull-left handle" style={{marginBottom:20}}>RoboCommander Info</h2>
+                    <h4 className="pull-left handle" style={{marginBottom:20}}>RoboCommander Info</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 900}}>
                         <tbody>

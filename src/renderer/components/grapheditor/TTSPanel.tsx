@@ -2,11 +2,12 @@ import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import * as ReactList from 'react-list';
 import Draggable from "react-draggable";
+import Titlebar from '../titlebar/Titlebar';
 
 import GraphModel from './model/GraphModel';
 import { SavedTTS } from './model/GraphConfig';
 
-export interface TTSPanelProps { graphModel: GraphModel}
+export interface TTSPanelProps { id: string, graphModel: GraphModel, onClosePanel: any}
 export interface TTSPanelState { activeTTS: SavedTTS, selectedCyperIndex: number, status: string, lastUpdateTime: number }
 
 export default class TTSPanel extends React.Component<TTSPanelProps, TTSPanelState> {
@@ -37,6 +38,7 @@ export default class TTSPanel extends React.Component<TTSPanelProps, TTSPanelSta
     }
 
     componentDidMount() {
+        this.props.graphModel.addPanelWithId(this.props.id);
     }
 
     componentWillUnmount() {
@@ -160,13 +162,43 @@ export default class TTSPanel extends React.Component<TTSPanelProps, TTSPanelSta
               </div>;
    }
 
+   handleClick(e: any): void {
+       // console.log(`onPanelClick:`);
+       this.props.graphModel.bringPanelToFront(this.props.id);
+   }
+
+   handleClose(e: any) {
+       this.props.onClosePanel(this.props.id);
+   }
+
+   handleMinimize(e: any) {
+       console.log('minimize');
+   }
+
+   handleMaximize(e: any) {
+       console.log('maximize');
+   }
+
+   handleFullScreen(e: any) {
+       console.log('fullscreen');
+   }
+
     render() {
         this._savedTTSList = this.props.graphModel.getSavedTTSList();
         this._savedTTSListLength = this._savedTTSList.length;
 
         // console.log(`render: `, this._savedTTSList);
 
-        return  <Draggable handle=".handle"><div className="editor-panel well" id="ttsPanel">
+        return  <Draggable handle=".handle">
+                    <div className="editor-panel well" id="ttsPanel">
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
                     <h4 className="pull-left handle" style={{marginBottom:20}}>Saved TTSs</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 400}}>

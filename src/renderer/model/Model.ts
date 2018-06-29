@@ -145,6 +145,8 @@ export default class Model extends EventEmitter {
 
     }
 
+    // Window Management
+
     getPanelOpenedWithId(panelId: string): boolean {
         let result: boolean = false;
         let window: WindowComponent | undefined = WindowComponent.getWindowComponentWithId(panelId);

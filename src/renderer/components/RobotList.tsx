@@ -77,7 +77,7 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
                             handleMaximize={this.handleMaximize.bind(this)}
                             handleFullScreen={this.handleFullScreen.bind(this)}>
                         </Titlebar>
-                        <h2 className="pull-left handle" style={{marginBottom:20}}>Robot List</h2>
+                        <h4 className="pull-left handle" style={{marginBottom:20}}>Robot List</h4>
                         <div className="clearfix"></div>
                         <ReactBootstrap.Table striped condensed hover>
                         <tbody>

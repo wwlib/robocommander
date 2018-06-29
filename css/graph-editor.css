@@ -47,10 +47,12 @@ body {
 
 #ttsPanel {
     top: 150px;
+    width: 490px;
 }
 
 #scriptPanel {
     top: 150px;
+    width: 490px;
 }
 
 .item {
@@ -74,9 +76,9 @@ body {
     left: 10px;
 }
 
-#stateDataEditorPanel {
-    top: 300px;
-    width: 420px;
+#stateDataPanel {
+    top: 150px;
+    width: 490px;
     left: 10px;
 }
 

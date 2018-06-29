@@ -109,6 +109,9 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
       }
 
     componentDidMount() {
+        this.graphModel.addPanelWithId('ttsPanel', 520, 150);
+        this.graphModel.addPanelWithId('scriptPanel', 520, 150);
+        this.graphModel.addPanelWithId('stateDataPanel', 520, 150);
     }
 
     componentWillUnmount() {
@@ -207,11 +210,11 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
 
         // let showTTSPanel: boolean = true;
         // this.startSimulation();
-        this.setState(prevState => ({
+        this.setState({
                 scale: 1.0,
                 showNodePanel: false,
                 showRelationshipPanel: false
-        }));
+        });
     }
 
     onUpdateActiveGraph(): void {
@@ -646,13 +649,16 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                 this.startSimulation(100);
                 break;
             case 'ttsPanel':
-                this.setState(prevState => ({showTTSPanel: !prevState.showTTSPanel}));
+                this.setState({showTTSPanel: this.graphModel.togglePanelOpenedWithId('ttsPanel')});
+                this.graphModel.bringPanelToFront('ttsPanel');
                 break;
             case 'scriptPanel':
-                this.setState(prevState => ({showScriptPanel: !prevState.showScriptPanel}));
+                this.setState({showScriptPanel: this.graphModel.togglePanelOpenedWithId('scriptPanel')});
+                this.graphModel.bringPanelToFront('scriptPanel');
                 break;
             case 'stateDataPanel':
-                this.setState(prevState => ({showStateDataPanel: !prevState.showStateDataPanel}));
+                this.setState({showStateDataPanel: this.graphModel.togglePanelOpenedWithId('stateDataPanel')});
+                this.graphModel.bringPanelToFront('stateDataPanel');
                 break;
         }
     }
@@ -674,48 +680,47 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
 
     showNodePanel(): void {
         this.setState({
-            showNodePanel: true,
-            showRelationshipPanel: false
+            showNodePanel: true
         });
-    }
-
-    hideNodePanel(): void {
-        this.setState({
-            showNodePanel: false
-        });
+        this.graphModel.openPanelWithId('nodeEditorPanel');
+        this.graphModel.bringPanelToFront('nodeEditorPanel');
     }
 
     showRelationshipPanel(): void {
         this.setState({
-            showNodePanel: false,
             showRelationshipPanel: true
         });
+        this.graphModel.openPanelWithId('relationshipEditorPanel');
+        this.graphModel.bringPanelToFront('relationshipEditorPanel');
     }
 
-    hideRelationshipPanel(): void {
-        this.setState({
-            showRelationshipPanel: false
-        });
-    }
-
-    showStateDataPanel(): void {
-        this.setState({
-            showStateDataPanel: true
-        });
-    }
-
-    hideStateDataPanel(): void {
-        this.setState({
-            showStateDataPanel: false
-        });
+    onClosePanel(id: string): void {
+        this.graphModel.closePanelWithId(id);
+        switch(id) {
+            case 'nodeEditorPanel':
+                this.setState({showNodePanel: false});
+                break;
+            case 'relationshipEditorPanel':
+                this.setState({showRelationshipPanel: false});
+                break;
+            case 'ttsPanel':
+                this.setState({showTTSPanel: false});
+                break;
+            case 'scriptPanel':
+                this.setState({showScriptPanel: false});
+                break;
+            case 'stateDataPanel':
+                this.setState({showStateDataPanel: false});
+                break;
+        }
     }
 
     render() {
-        let nodePanel: JSX.Element | null = this.state.showNodePanel ? <NodePanel graphModel={this.graphModel} hideNodePanelCallback={this.hideNodePanel.bind(this)} /> : null;
-        let relationshipPanel: JSX.Element | null = this.state.showRelationshipPanel ? <RelationshipPanel graphModel={this.graphModel} hideRelationshipPanelCallback={this.hideRelationshipPanel.bind(this)} /> : null;
-        let ttsPanel: JSX.Element | null = this.state.showTTSPanel ? <TTSPanel graphModel={this.graphModel} /> : null;
-        let scriptPanel: JSX.Element | null = this.state.showScriptPanel ? <ScriptPanel graphModel={this.graphModel} /> : null;
-        let stateDataPanel: JSX.Element | null = this.state.showStateDataPanel ? <StateDataPanel graphModel={this.graphModel} hideStateDataPanelCallback={this.hideStateDataPanel.bind(this)} targetedRobots={this.props.commanderModel.targetedRobots} /> : null;
+        let nodePanel: JSX.Element | null = this.state.showNodePanel ? <NodePanel id='nodeEditorPanel' graphModel={this.graphModel} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let relationshipPanel: JSX.Element | null = this.state.showRelationshipPanel ? <RelationshipPanel id='relationshipEditorPanel' graphModel={this.graphModel} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let ttsPanel: JSX.Element | null = this.state.showTTSPanel ? <TTSPanel id='ttsPanel' graphModel={this.graphModel} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let scriptPanel: JSX.Element | null = this.state.showScriptPanel ? <ScriptPanel id='scriptPanel' graphModel={this.graphModel} onClosePanel={this.onClosePanel.bind(this)}/> : null;
+        let stateDataPanel: JSX.Element | null = this.state.showStateDataPanel ? <StateDataPanel id='stateDataPanel' graphModel={this.graphModel} targetedRobots={this.props.commanderModel.targetedRobots} onClosePanel={this.onClosePanel.bind(this)}/> : null;
         // <input id="internalScale" type="range" min="0.1" max="5" value={this.state.scale} step="0.01" onChange={this.changeInternalScale.bind(this)}/>
         // <ReactBootstrap.Button id="forceLayoutButton" bsStyle={'default'} key={"forceLayout"} style = {{width: 80}}
         //     onClick={this.onButtonClicked.bind(this, "forceLayout")}>Force</ReactBootstrap.Button>

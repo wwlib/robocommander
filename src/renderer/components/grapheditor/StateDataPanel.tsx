@@ -1,11 +1,12 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from '../titlebar/Titlebar';
 
 import GraphModel from './model/GraphModel';
 import Robot from '../../model/Robot';
 
-export interface StateDataPanelProps { graphModel: GraphModel, hideStateDataPanelCallback: any, targetedRobots: Robot[]}
+export interface StateDataPanelProps { id: string, graphModel: GraphModel, targetedRobots: Robot[], onClosePanel: any}
 export interface StateDataPanelState { robot: Robot | undefined, data: string, lastUpdateTime: number }
 
 export default class StateDataPanel extends React.Component<StateDataPanelProps, StateDataPanelState> {
@@ -26,15 +27,8 @@ export default class StateDataPanel extends React.Component<StateDataPanelProps,
         // this.props.graphModel.on('updateStateData', this._setStateDataHandler);
     }
 
-    // setStateData(robot: Robot | undefined, data: any): void {
-    //     this.setState({
-    //         robot: robot,
-    //         data: JSON.stringify(data, null, 2)
-    //     });
-    // }
-
     componentDidMount() {
-
+        this.props.graphModel.addPanelWithId(this.props.id);
     }
 
     componentWillUnmount() {
@@ -67,7 +61,7 @@ export default class StateDataPanel extends React.Component<StateDataPanelProps,
                 // this.props.graphModel.onRedraw();
                 break;
             case 'cancel':
-                this.props.hideStateDataPanelCallback();
+                this.props.onClosePanel(this.props.id);
                 break;
         }
     }
@@ -107,12 +101,42 @@ export default class StateDataPanel extends React.Component<StateDataPanelProps,
         return robotButtons;
     }
 
+    handleClick(e: any): void {
+        // console.log(`onPanelClick:`);
+        this.props.graphModel.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
+    }
+
     render() {
         let scope: string = 'global';
         if (this.state.robot) {
             scope = this.state.robot.name;
         }
-        return  <Draggable handle=".handle"><div className="editor-panel well" id="stateDataEditorPanel">
+        return  <Draggable handle=".handle">
+                    <div className="editor-panel well" id="stateDataPanel">
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
                     <h4 className="pull-left handle" style={{marginBottom:20}}>State Data</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 400}}>

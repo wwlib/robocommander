@@ -287,7 +287,7 @@ export default class Commands extends React.Component<CommandsProps, CommandsSta
                         handleMaximize={this.handleMaximize.bind(this)}
                         handleFullScreen={this.handleFullScreen.bind(this)}>
                     </Titlebar>
-                    <h2 className="pull-left handle" style={{marginBottom:20}}>Commands</h2>
+                    <h4 className="pull-left handle" style={{marginBottom:20}}>Commands</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped condensed hover>
                     <tbody>

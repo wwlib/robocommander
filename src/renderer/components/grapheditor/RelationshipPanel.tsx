@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import Draggable from "react-draggable";
+import Titlebar from '../titlebar/Titlebar';
 
 import GraphModel from './model/GraphModel';
 
-export interface RelationshipPanelProps { graphModel: GraphModel, hideRelationshipPanelCallback: any}
+export interface RelationshipPanelProps { id: string, graphModel: GraphModel, onClosePanel: any}
 export interface RelationshipPanelState { type: string, properties: string }
 
 export default class RelationshipPanel extends React.Component<RelationshipPanelProps, RelationshipPanelState> {
@@ -24,7 +25,7 @@ export default class RelationshipPanel extends React.Component<RelationshipPanel
     }
 
     componentDidMount() {
-
+        this.props.graphModel.addPanelWithId(this.props.id);
     }
 
     componentWillUnmount() {
@@ -32,6 +33,7 @@ export default class RelationshipPanel extends React.Component<RelationshipPanel
     }
 
     setProperties(data: any): void {
+        console.log(data);
         this.setState({
             type: data.label,
             properties: data.properties
@@ -73,17 +75,46 @@ export default class RelationshipPanel extends React.Component<RelationshipPanel
             case 'cancel':
                 break;
         }
-        this.props.hideRelationshipPanelCallback();
-
+        this.props.onClosePanel(this.props.id);
     }
 
     save(): void {
         this.props.graphModel.saveActiveRelationship(this.state.type, this.state.properties);
     }
 
+    handleClick(e: any): void {
+        // console.log(`onPanelClick:`);
+        this.props.graphModel.bringPanelToFront(this.props.id);
+    }
+
+    handleClose(e: any) {
+        this.props.onClosePanel(this.props.id);
+    }
+
+    handleMinimize(e: any) {
+        console.log('minimize');
+    }
+
+    handleMaximize(e: any) {
+        console.log('maximize');
+    }
+
+    handleFullScreen(e: any) {
+        console.log('fullscreen');
+    }
+
     render() {
         let relationshipId: string = this.props.graphModel.activeRelationship ? this.props.graphModel.activeRelationship.id : ""
-        return  <Draggable handle=".handle"><div className="editor-panel well" id="relationshipEditorPanel">
+        return  <Draggable handle=".handle">
+                    <div className="editor-panel well" id="relationshipEditorPanel">
+                    <Titlebar
+                        draggable={true}
+                        handleClick={this.handleClick.bind(this)}
+                        handleClose={this.handleClose.bind(this)}
+                        handleMinimize={this.handleMinimize.bind(this)}
+                        handleMaximize={this.handleMaximize.bind(this)}
+                        handleFullScreen={this.handleFullScreen.bind(this)}>
+                    </Titlebar>
                     <h4 className="pull-left handle" style={{marginBottom:20}}>Relationship [{relationshipId}]</h4>
                     <div className="clearfix"></div>
                     <ReactBootstrap.Table striped bordered condensed hover style = {{width: 400}}>
