@@ -16,7 +16,6 @@ import Model from '../model/Model';
 const {shell} = require('electron').remote;
 
 const wwLogo = require('../../../assets/ww-logo-40.png')
-console.log(`Application: image:`, wwLogo);
 
 export interface ApplicationProps { model: Model }
 export interface ApplicationState {

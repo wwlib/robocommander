@@ -1,16 +1,15 @@
 import * as React from "react";
 
 var util = require('util');
-var fs = require('fs');
+// var fs = require('fs');
 var defaultcss = require('defaultcss');
 var classNames = require('classnames');
 
 var stoplightPNG = require('./stoplight.png');
 var stoplightURL = stoplightPNG.toString('base64');
-console.log(`stoplightURL: `, stoplightURL);
 
-var style = fs.readFileSync(__dirname + '/titlebar.css', 'utf-8');
-style = util.format(style, stoplightURL);
+import styleCss from './titlebar-css'
+var style = util.format(styleCss, stoplightURL);
 
 var ALT = 18;
 
