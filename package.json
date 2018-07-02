@@ -15,7 +15,7 @@
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "dependencies": {
-    "@jibo/apptoolkit-library": "github:wwlib/ww-apptoolkit-node-library#look-protocol-fix",
+    "@jibo/apptoolkit-library": "^0.1.5",
     "@types/three": "^0.91.8",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",
