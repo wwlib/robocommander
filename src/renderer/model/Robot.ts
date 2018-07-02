@@ -9,6 +9,8 @@ import {
     Robot as JiboRobotConnection
 } from '@jibo/apptoolkit-library';
 
+import { CommandRequester } from '@jibo/command-requester';
+
 export enum RobotType {
     jibo = 'jibo'
 }
@@ -232,15 +234,13 @@ export default class Robot extends EventEmitter {
                     if (!this._muted && command.data && (command.data.angle || command.data.vector)) {
                         let p;
                         if (command.data.angle) {
-                            // let angle: JIBO.v1.AngleVector = [command.data.angle, 0];
-                            let angle: any = { type: "ANGLE", angle: {theta: command.data.angle, psi: 0}};
-                            // let target: JIBO.v1.AngleTarget = { Angle: angle, type: "ANGLE" };
-                            p = this._robotConnection.requester.expression.look(angle).complete;
+                            let angleVector: CommandRequester.AngleVector = {theta: command.data.angle, psi: 0};
+                            let lookAtTarget: CommandRequester.expression.LookAtTarget = { type: "ANGLE", angle: angleVector, levelHead: true};
+                            p = this._robotConnection.requester.expression.look(lookAtTarget).complete;
                         } else if (command.data.vector) {
-                            // let vector: JIBO.v1.Vector3 = command.data.vector;
-                            // let target: JIBO.v1.LookAtTarget = { Position: vector, type: "POSITION" };
-                            let vector: any = { type: "POSITION", position: {x: command.data.vector[0], y: command.data.vector[1], z:command.data.vector[2]}};
-                            p = this._robotConnection.requester.expression.look(vector).complete;
+                            let vector: CommandRequester.Vector3 = {x: command.data.vector[0], y: command.data.vector[1], z:command.data.vector[2]}
+                            let position: CommandRequester.expression.Position = { type: "POSITION", position: vector, levelHead: true};
+                            p = this._robotConnection.requester.expression.look(position).complete;
                         }
                         if (p) {
                             console.log(`p:`, p);
@@ -276,7 +276,7 @@ export default class Robot extends EventEmitter {
                     break;
                 case "volume":
                     if (!this._muted && command.data && command.data.volume) {
-                        let configOptions: any = {
+                        let configOptions: CommandRequester.config.SetConfigOptions = {
                             mixer: Number(command.data.volume)
                         };
                         let p = this._robotConnection.requester.config.set(configOptions).complete;
