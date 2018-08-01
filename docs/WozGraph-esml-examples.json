@@ -1,0 +1,750 @@
+{
+  "name": "esml-examples",
+  "type": "file",
+  "scale": 1,
+  "css": "\n      circle.node-base {\n         fill: #D0E5F2;\n         stroke: #25C086;\n         stroke-width: 3px;\n      }\n       text.caption {\n         fill: #2D5083;\n      }\n       body {\n         background-color: lightgrey;\n      }\n       circle.node-type-video {\n         fill: #FADBD0;\n         stroke: #E53D00;\n         stroke-width: 3px;\n      }\n       circle.node-type-ask {\n         fill: #FADBD0;\n         stroke: #E53D00;\n         stroke-width: 3px;\n      }\n       circle.node-type-imageCancel {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n         stroke-width: 3px;\n      }\n       circle.node-type-image {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n      }\n       circle.node-type-launch {\n         fill: #FCF1D0;\n         stroke: #F0B500;\n      }\n       circle.node-type-tts {\n         fill: #D0E5F2;\n         stroke: #0072BC;\n         stroke-width: 3px;\n      }\n       circle.node-type-nav {\n         fill: #D7F3E9;\n         stroke: #25C086;\n         stroke-width: 3px;\n      }\n       circle.node.overlay:hover {\n         fill: rgba(150, 150, 255, 0.5);\n      }\n       circle.node.ring:hover {\n         stroke: rgba(150, 150, 255, 0.5);\n      }\n       path.relationship.overlay:hover {\n         fill: rgba(150, 150, 255, 0.5);\n         stroke: rgba(150, 150, 255, 0.5);\n     }\n",
+  "config": {
+    "savedTTSs": [
+      {
+        "index": 0,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='flower'> This is a flower </anim>"
+      },
+      {
+        "index": 1,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='?flower, ?turtle'> This is either a flower or a turtle </anim>"
+      },
+      {
+        "index": 2,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='!flower'/> This is not a flower"
+      },
+      {
+        "index": 3,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='flower, !blue, !white'/> This is flower that isn't blue or white"
+      },
+      {
+        "index": 4,
+        "name": "example",
+        "prompt": "<anim cat='dance' filter='rom-twerk'/> I'm a twerking robot"
+      },
+      {
+        "index": 5,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='?(flower, turtle)'> This is either a flower or a turtle </anim>"
+      },
+      {
+        "index": 6,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='&(flower), !(blue, white)'/> This is flower that isn't blue"
+      },
+      {
+        "index": 7,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='&(hf, flower)'/> This is a flower hotframe"
+      },
+      {
+        "index": 8,
+        "name": "example",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(flower)'/> This is my full flower emoji"
+      },
+      {
+        "index": 9,
+        "name": "example",
+        "prompt": "<anim cat='dance' filter='&(music)'/> I'm dancing to music"
+      },
+      {
+        "index": 10,
+        "name": "example",
+        "prompt": "<anim cat='dance' filter='!(music)'/> I'm dancing without music"
+      },
+      {
+        "index": 11,
+        "name": "example",
+        "prompt": "I can dance <anim cat=‘dance’ filter=‘music’/> There it was"
+      },
+      {
+        "index": 12,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’> I’m dancing right now </anim>"
+      },
+      {
+        "index": 13,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ nonBlocking='true'/> I’m dancing right now"
+      },
+      {
+        "index": 14,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ loop='0'> Look at me, I’m dancing right now, for an extended period of time </anim>"
+      },
+      {
+        "index": 15,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ loop='3'/> I just danced 3 times"
+      },
+      {
+        "index": 16,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ loop='3' nonBlocking='true'/> I’m dancing right now, 3 times"
+      },
+      {
+        "index": 17,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ endNeutral='true'/> I’m dancing right now"
+      },
+      {
+        "index": 18,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ endNeutral='true' nonBlocking='true'/> I’m dancing right now"
+      },
+      {
+        "index": 19,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ layers='!screen'/> I'm dancing with no screen animations"
+      },
+      {
+        "index": 20,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ layers='screen’/> I'm dancing with only screen animations"
+      },
+      {
+        "index": 21,
+        "name": "example",
+        "prompt": "<anim cat=‘dance’ filter=‘music’ layers='screen, body'/> I'm dancing with screen and body animations"
+      },
+      {
+        "index": 22,
+        "name": "example",
+        "prompt": "This is a happy sound <ssa cat='happy'/>"
+      },
+      {
+        "index": 23,
+        "name": "example",
+        "prompt": "Here are three happy sounds <ssa cat='happy' loop='3'/>"
+      },
+      {
+        "index": 24,
+        "name": "example",
+        "prompt": "<ssa cat='worried'/> That was my worried noise."
+      },
+      {
+        "index": 25,
+        "name": "example",
+        "prompt": "<ssa cat='affection' nonBlocking='true'/> I love penguins."
+      },
+      {
+        "index": 26,
+        "name": "example",
+        "prompt": "<pitch add='200'> Hi </pitch><pitch mult='1.2'> there </pitch><break size='1'/> I'm Jibo"
+      },
+      {
+        "index": 27,
+        "name": "example",
+        "prompt": "This is a <pitch mult='2.2'> pitch </pitch> test"
+      },
+      {
+        "index": 28,
+        "name": "example",
+        "prompt": "<pitch band='1.2'> Hi there, I'm Jibo </pitch>"
+      },
+      {
+        "index": 29,
+        "name": "example",
+        "prompt": "<pitch halftone='-5'> This is a pitch test </pitch>"
+      },
+      {
+        "index": 30,
+        "name": "example",
+        "prompt": "This is a <duration stretch='3'> duration </duration> test"
+      },
+      {
+        "index": 31,
+        "name": "example",
+        "prompt": "<duration stretch='3.0'> This is a duration test </duration>"
+      },
+      {
+        "index": 32,
+        "name": "example",
+        "prompt": "Jibo is spelled <say-as spell='jibo'/>"
+      },
+      {
+        "index": 33,
+        "name": "example",
+        "prompt": "Does <phoneme ph='b aa n ou'> Bono </phoneme> love moose, too?"
+      },
+      {
+        "index": 34,
+        "name": "example",
+        "prompt": "Does <phoneme ph='b aa1 n ou0'> Bono </phoneme> love moose, too?"
+      },
+      {
+        "index": 35,
+        "name": "example",
+        "prompt": "<style set='enthusiastic'> This is great </style> But, <style set='confused'> how did they do that? </style>"
+      },
+      {
+        "index": 36,
+        "name": "category",
+        "prompt": "<anim cat='affection' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 37,
+        "name": "category",
+        "prompt": "<anim cat='confused' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 38,
+        "name": "category",
+        "prompt": "<anim cat='dance' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 39,
+        "name": "category",
+        "prompt": "<anim cat='embarrassed' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 40,
+        "name": "category",
+        "prompt": "<anim cat='excited' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 41,
+        "name": "category",
+        "prompt": "<anim cat='frustrated' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 42,
+        "name": "category",
+        "prompt": "<anim cat='happy' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 43,
+        "name": "category",
+        "prompt": "<anim cat='laughing' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 44,
+        "name": "category",
+        "prompt": "<anim cat='no' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 45,
+        "name": "category",
+        "prompt": "<anim cat='proud' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 46,
+        "name": "category",
+        "prompt": "<anim cat='relieved ' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 47,
+        "name": "category",
+        "prompt": "<anim cat='sad' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 48,
+        "name": "category",
+        "prompt": "<anim cat='scared' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 49,
+        "name": "category",
+        "prompt": "<anim cat='surprised' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 50,
+        "name": "category",
+        "prompt": "<anim cat='worried' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 51,
+        "name": "category",
+        "prompt": "<anim cat='yes' nonBlocking='true' endNeutral='true' />."
+      },
+      {
+        "index": 52,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(airplane)' nonBlocking='true' />."
+      },
+      {
+        "index": 53,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(basketball)' nonBlocking='true' />."
+      },
+      {
+        "index": 54,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(beach)' nonBlocking='true' />."
+      },
+      {
+        "index": 55,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(car)' nonBlocking='true' />."
+      },
+      {
+        "index": 56,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(disco-spin)' nonBlocking='true' />."
+      },
+      {
+        "index": 57,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(football)' nonBlocking='true' />."
+      },
+      {
+        "index": 58,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(soccer)' nonBlocking='true' />."
+      },
+      {
+        "index": 59,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(trophy)' nonBlocking='true' />."
+      },
+      {
+        "index": 60,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(music)' nonBlocking='true' />."
+      },
+      {
+        "index": 61,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(question-mark)' nonBlocking='true' />."
+      },
+      {
+        "index": 62,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(star)' nonBlocking='true' />."
+      },
+      {
+        "index": 63,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(beer)' nonBlocking='true' />."
+      },
+      {
+        "index": 64,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(cake)' nonBlocking='true' />."
+      },
+      {
+        "index": 65,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(cheese)' nonBlocking='true' />."
+      },
+      {
+        "index": 66,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(drumstick)' nonBlocking='true' />."
+      },
+      {
+        "index": 67,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(coffee)' nonBlocking='true' />."
+      },
+      {
+        "index": 68,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(fork)' nonBlocking='true' />."
+      },
+      {
+        "index": 69,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(fish)' nonBlocking='true' />."
+      },
+      {
+        "index": 70,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(groceries)' nonBlocking='true' />."
+      },
+      {
+        "index": 71,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(burger)' nonBlocking='true' />."
+      },
+      {
+        "index": 72,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(hotdog)' nonBlocking='true' />."
+      },
+      {
+        "index": 73,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(icecream)' nonBlocking='true' />."
+      },
+      {
+        "index": 74,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(pizza)' nonBlocking='true' />."
+      },
+      {
+        "index": 75,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(wine)' nonBlocking='true' />."
+      },
+      {
+        "index": 76,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(christmas-tree)' nonBlocking='true' />."
+      },
+      {
+        "index": 77,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(fireworks)' nonBlocking='true' />."
+      },
+      {
+        "index": 78,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(halloween)' nonBlocking='true' />."
+      },
+      {
+        "index": 79,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(hanukkah)' nonBlocking='true' />."
+      },
+      {
+        "index": 80,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(thanksgiving)' nonBlocking='true' />."
+      },
+      {
+        "index": 81,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(clover)' nonBlocking='true' />."
+      },
+      {
+        "index": 82,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(valentines)' nonBlocking='true' />."
+      },
+      {
+        "index": 83,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(chocolate)' nonBlocking='true' />."
+      },
+      {
+        "index": 84,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(bicycle)' nonBlocking='true' />."
+      },
+      {
+        "index": 85,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(cat)' nonBlocking='true' />."
+      },
+      {
+        "index": 86,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(laptop)' nonBlocking='true' />."
+      },
+      {
+        "index": 87,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(dog)' nonBlocking='true' />."
+      },
+      {
+        "index": 88,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(gift)' nonBlocking='true' />."
+      },
+      {
+        "index": 89,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(house)' nonBlocking='true' />."
+      },
+      {
+        "index": 90,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(laundry)' nonBlocking='true' />."
+      },
+      {
+        "index": 91,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(lightbulb)' nonBlocking='true' />."
+      },
+      {
+        "index": 92,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(money)' nonBlocking='true' />."
+      },
+      {
+        "index": 93,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(popcorn)' nonBlocking='true' />."
+      },
+      {
+        "index": 94,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(party)' nonBlocking='true' />."
+      },
+      {
+        "index": 95,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(phone)' nonBlocking='true' />."
+      },
+      {
+        "index": 96,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(robot)' nonBlocking='true' />."
+      },
+      {
+        "index": 97,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(sunglasses)' nonBlocking='true' />."
+      },
+      {
+        "index": 98,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(toilet-paper)' nonBlocking='true' />."
+      },
+      {
+        "index": 99,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(trash)' nonBlocking='true' />."
+      },
+      {
+        "index": 100,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(umbrella)' nonBlocking='true' />."
+      },
+      {
+        "index": 101,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(video-game)' nonBlocking='true' />."
+      },
+      {
+        "index": 102,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(bird)' nonBlocking='true' />."
+      },
+      {
+        "index": 103,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(cow)' nonBlocking='true' />."
+      },
+      {
+        "index": 104,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(earth)' nonBlocking='true' />."
+      },
+      {
+        "index": 105,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(flower)' nonBlocking='true' />."
+      },
+      {
+        "index": 106,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(lightning-bolt)' nonBlocking='true' />."
+      },
+      {
+        "index": 107,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(moon)' nonBlocking='true' />."
+      },
+      {
+        "index": 108,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(mountain)' nonBlocking='true' />."
+      },
+      {
+        "index": 109,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(mouse)' nonBlocking='true' />."
+      },
+      {
+        "index": 110,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(penguin)' nonBlocking='true' />."
+      },
+      {
+        "index": 111,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(pig)' nonBlocking='true' />."
+      },
+      {
+        "index": 112,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(bunny)' nonBlocking='true' />."
+      },
+      {
+        "index": 113,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(rainbow)' nonBlocking='true' />."
+      },
+      {
+        "index": 114,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(baby)' nonBlocking='true' />."
+      },
+      {
+        "index": 115,
+        "name": "emoji",
+        "prompt": "<anim cat='emoji' filter='!(hf), &(heart)' nonBlocking='true' />."
+      },
+      {
+        "index": 116,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-upbeat'/>."
+      },
+      {
+        "index": 117,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-ballroom'/>."
+      },
+      {
+        "index": 118,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-silly'/>."
+      },
+      {
+        "index": 119,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-slowdance'/>."
+      },
+      {
+        "index": 120,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-eletronic'/>."
+      },
+      {
+        "index": 121,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='music, rom-twerk'/>."
+      },
+      {
+        "index": 122,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-upbeat)' />."
+      },
+      {
+        "index": 123,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-ballroom)' />."
+      },
+      {
+        "index": 124,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-silly)' />."
+      },
+      {
+        "index": 125,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-slowdance)' />."
+      },
+      {
+        "index": 126,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-eletronic)' />."
+      },
+      {
+        "index": 127,
+        "name": "dance",
+        "prompt": "<anim cat='dance' filter='!(music), &(rom-twerk)' />."
+      },
+      {
+        "index": 128,
+        "name": "ssa",
+        "prompt": "This is a happy sound <ssa cat='happy'/>"
+      },
+      {
+        "index": 129,
+        "name": "ssa",
+        "prompt": "Here are three happy sounds <ssa cat='happy' loop='3'/>"
+      },
+      {
+        "index": 130,
+        "name": "ssa",
+        "prompt": "<ssa cat='worried'/> That was my worried noise"
+      },
+      {
+        "index": 131,
+        "name": "ssa",
+        "prompt": "<ssa cat='affection' nonBlocking='true'/> I love penguins"
+      },
+      {
+        "index": 132,
+        "name": "tts",
+        "prompt": "Not sure <break size='0.5'/> if trust moose"
+      },
+      {
+        "index": 133,
+        "name": "tts",
+        "prompt": "I won’t talk for 2 seconds. <break size='2'/> See?"
+      },
+      {
+        "index": 134,
+        "name": "tts",
+        "prompt": "Does <phoneme ph='b aa n ou'> Bono </phoneme> love moose, too?"
+      },
+      {
+        "index": 135,
+        "name": "tts",
+        "prompt": "Does <phoneme ph='b aa1 n ou0'> Bono </phoneme> love moose, too?"
+      },
+      {
+        "index": 136,
+        "name": "tts",
+        "prompt": "<pitch add='200'> Hi </pitch> <pitch mult='1.2'> there </pitch> <break size='1'/> I'm Jibo"
+      },
+      {
+        "index": 137,
+        "name": "tts",
+        "prompt": "This is a <pitch mult='2.2'> pitch </pitch> test"
+      },
+      {
+        "index": 138,
+        "name": "tts",
+        "prompt": "This is a <duration stretch='3'> duration </duration> test"
+      },
+      {
+        "index": 139,
+        "name": "tts",
+        "prompt": "<duration stretch='3.0'> <pitch halftone='-5'> This is a duration and pitch test </pitch></duration>"
+      },
+      {
+        "index": 140,
+        "name": "tts",
+        "prompt": "<pitch band='1.2'> Hi there, I'm Jibo </pitch>"
+      },
+      {
+        "index": 141,
+        "name": "tts",
+        "prompt": "*Jibo is spelled <say-as spell='jibo'/>"
+      }
+    ]
+  },
+  "scriptConfig": {
+    "savedScripts": [
+      {
+        "index": 0,
+        "name": "<script name>",
+        "script": "<script>"
+      }
+    ]
+  },
+  "d3Graph": {
+    "nodes": [
+      {
+        "id": "0",
+        "group": 1,
+        "properties": {
+          "name": "Examples",
+          "prompt": "Open the Saved <say-as spell='TTS'/> panel to see the examples."
+        },
+        "labels": [
+          "esml"
+        ],
+        "position": {
+          "x": 640,
+          "y": 361
+        }
+      }
+    ],
+    "links": []
+  },
+  "timestamp": 1533140773620
+}

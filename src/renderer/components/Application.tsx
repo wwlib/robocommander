@@ -114,6 +114,7 @@ export default class Application extends React.Component < ApplicationProps, App
                 <div id="commanderButtons">
                     <img className="pull-left" src={wwLogo} style={{width: 40}} onClick={this.onLogoClicked.bind(this)}/>
                     <h4 className="pull-left" style={{paddingLeft: 6, paddingRight: 6}} onClick={this.onLogoClicked.bind(this)}>RoboCommander.io</h4>
+                    <h4 className="pull-right" style={{paddingLeft: 6, paddingRight: 6}} >v{this.props.model.getAppVerison()}</h4>
                     <ReactBootstrap.Button bsStyle={'default'} key={"appInfo"} style = {{width: 100}}
                         onClick={this.onButtonClicked.bind(this, "appInfo")}>App Info</ReactBootstrap.Button>
                     <ReactBootstrap.Button bsStyle={'default'} key={"robots"} style = {{width: 100}}

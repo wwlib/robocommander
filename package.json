@@ -12,7 +12,9 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "version": "./version.sh $npm_package_version",
+    "test-version": "./version.sh $npm_package_version"
   },
   "dependencies": {
     "@jibo/apptoolkit-library": "^0.1.5",

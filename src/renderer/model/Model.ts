@@ -7,6 +7,7 @@ import RomCommands from './RomCommands';
 import RomCommand from './RomCommand';
 import Config from "./Config";
 import WindowComponent from './WindowComponent';
+import { appVersion } from './AppVersion';
 
 let configDataTemplate: any = require('../../../data/robocommander-template.json');
 
@@ -184,6 +185,10 @@ export default class Model extends EventEmitter {
 
     get targetedRobots(): Robot[] {
         return this.robots.targetedRobots
+    }
+    
+    getAppVerison(): string {
+        return appVersion;
     }
 
     dispose(): void {
