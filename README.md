@@ -1,14 +1,14 @@
-## Robo Commander
+## RoboCommander
 
 [https://wwlib.github.io/robocommander/](https://wwlib.github.io/robocommander/)
 
 [https://wwlib.github.io](https://wwlib.github.io/)
 
-Robo Commander is a tool for controlling robots. Any robot that implements a command protocol via a socket or REST API can potentially be controlled by Robo Commander (with appropriate modifications). The current version can control [Jibo](https://jibo.com/) robots (dev credentials are required).
+RoboCommander is a tool for controlling robots. Any robot that implements a command protocol via a socket or REST API can potentially be controlled by RoboCommander (with appropriate modifications). The current version can control [Jibo](https://jibo.com/) robots (dev credentials are required).
 
-Robo Commander is ideal for real-time, human-operated Woz (Wizard of Oz) remote control. In addition, Robo Commander’s WozGraph panel provides a graph-based tool for designing and controlling scripted interactions. WozGraph layouts can incorporate simple automation using  JavaScript. WozGraph layouts can be configured to respond automatically to voice commands via integration with LUIS and/or Dialogflow NLU services.
+RoboCommander is ideal for real-time, human-operated Woz (Wizard of Oz) remote control. In addition, RoboCommander’s WozGraph panel provides a graph-based tool for designing and controlling scripted interactions. WozGraph layouts can incorporate simple automation using  JavaScript. WozGraph layouts can be configured to respond automatically to voice commands via integration with LUIS and/or Dialogflow NLU services.
 
-For developers, Robo Commander includes TypeScript classes that provide an easy way to prototype NLU-driven Remote Operation Mode (ROM) skills.
+For developers, RoboCommander includes TypeScript classes that provide an easy way to prototype NLU-driven Remote Operation Mode (ROM) skills.
 
 ### Docs
 

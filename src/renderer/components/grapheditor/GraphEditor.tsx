@@ -393,7 +393,6 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                     }
                     var nluType: string =  node.properties.has('nluType');
                     if (prompt) {
-                        console.log(`sending prompt: ${prompt}`);
                         this.props.commanderModel.sendAsk(prompt, contexts, nluType, robot);
                     }
                     break;
@@ -413,7 +412,6 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                             console.log(`executeNode: error parsing vectorProperty`);
                         }
                     }
-                    console.log(angleProperty, vectorProperty, angle, vector);
                     break;
                 case 'volume':
                     var volume: number = Number(node.properties.has('volume'));
@@ -428,9 +426,10 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                     }
                     break;
                 case 'image':
-                    var url: number = Number(node.properties.has('url'));
+                    var url: string = node.properties.has('url');
+                    var name: string = node.properties.has('name') || 'image';
                     if (url) {
-                        this.props.commanderModel.sendRomCommandWithData({type: 'image', data: {url: url}}, robot);
+                        this.props.commanderModel.sendRomCommandWithData({type: 'image', data: {url: url, name: name}}, robot);
                     }
                     break;
                 case 'eye':

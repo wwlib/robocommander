@@ -171,7 +171,7 @@ export default class GraphModel extends EventEmitter {
             this._activeNode.caption = label;
             this._activeNode.properties.clearAll();
             propertiesText.split("\n").forEach((line: string) => {
-                let tokens = line.split(/: */);
+                let tokens = line.split(/: +/);
                 if (tokens.length === 2) {
                     var key = tokens[0].trim();
                     var value = tokens[1].trim();

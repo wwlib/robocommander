@@ -426,6 +426,7 @@ export default class Robot extends EventEmitter {
                             .then(() => {
                                 console.log(`connect: Robot connected!`);
                                 if (this._robotConnection) {
+                                    this.ip = this._robotConnection['_ip'];
                                     this._robotConnection.once('disconnect', () => {
                                         console.info('connect: Robot disconnected.');
                                         this.updateRobotStatusMessages('connect: Robot disconnected.');

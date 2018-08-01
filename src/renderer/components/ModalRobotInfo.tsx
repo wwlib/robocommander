@@ -28,11 +28,15 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
 
     componentWillReceiveProps(nextProps: ModalRobotInfoProps) {
         if (nextProps.modalRobot) {
+            let ip: string = `<read-only:set-automatically>`;
+            if (nextProps.modalRobot.ip) {
+                ip = nextProps.modalRobot.ip;
+            }
             this.setState({
                 showModalState: nextProps.showModalProp,
                 type: nextProps.modalRobot.type,
                 name: nextProps.modalRobot.name,
-                ip: nextProps.modalRobot.ip,
+                ip: ip,
                 aliasName: nextProps.modalRobot.serialName,
                 email: nextProps.modalRobot.email,
                 password: nextProps.modalRobot.password

@@ -136,7 +136,7 @@ export default class Model extends EventEmitter {
     }
 
     sendRomCommandWithData(data: any, robot?: Robot): void {
-        if (data.type & data.data) {
+        if (data.type && data.data) {
             let type: string = data.type;
             let commandData = data.data;
             let command: RomCommand = new RomCommand("", type, commandData);
