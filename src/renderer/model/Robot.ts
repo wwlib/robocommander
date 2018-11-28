@@ -401,7 +401,7 @@ export default class Robot extends EventEmitter {
                             console.log('photo ready - uri: ', uri);
                             //start getting the thing
                             const file = fs.createWriteStream('./PhotoIzHere.jpg');
-                            var request = http.get({
+                            http.get({
                                 hostname: this.ip,
                                 port: 8160, //7160, //8160,
                                 path: uri
