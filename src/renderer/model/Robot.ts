@@ -3,6 +3,9 @@ import AppInfo from './AppInfo';
 import RomCommand from './RomCommand';
 import Hub, { NluData } from '../romulus/Hub';
 
+const fs = require('fs');
+const http = require('http');
+
 import {
     Account as JiboAccount,
     AccountCreds as JiboAccountCreds,
@@ -24,10 +27,10 @@ export interface RobotData {
     password: string;
 }
 
-export interface RobotIntent {
-    robot: Robot;
-    type: string;
-    data: any;
+export enum RobotIntentType {
+    LAUNCH,
+    LISTEN,
+    ACTION_COMPLETE
 }
 
 export interface RobotIntentData {
@@ -37,6 +40,12 @@ export interface RobotIntentData {
     launchId: string | undefined;
     nluData: any | undefined;
     userId: string | undefined;
+}
+
+export interface RobotIntent {
+    robot: Robot;
+    type: RobotIntentType;
+    data: RobotIntentData;
 }
 
 export default class Robot extends EventEmitter {
@@ -155,12 +164,12 @@ export default class Robot extends EventEmitter {
     }
 
     onLaunchIntent(robotIntentData: RobotIntentData ): void {
-        let robotIntent: RobotIntent = {robot: this, type: 'launch', data: robotIntentData};
+        let robotIntent: RobotIntent = {robot: this, type: RobotIntentType.LAUNCH, data: robotIntentData};
         this.emit('robotIntent', robotIntent);
     }
 
     onListenIntent(robotIntentData: RobotIntentData): void {
-        let robotIntent: RobotIntent = {robot: this, type: 'listen', data: robotIntentData};
+        let robotIntent: RobotIntent = {robot: this, type: RobotIntentType.LISTEN, data: robotIntentData};
         this.emit('robotIntent', robotIntent);
     }
 
@@ -175,6 +184,9 @@ export default class Robot extends EventEmitter {
                         let p = this._robotConnection.requester.expression.say(prompt).complete;
                         p.then( () => {
                             // console.log(`Robot: sendCommand: done`);
+                            let robotIntentData: RobotIntentData = {nluType: 'none', asr: '', intent: 'OK', launchId: undefined, nluData: undefined, userId: undefined};
+                            let robotIntent: RobotIntent = {robot: this, type: RobotIntentType.ACTION_COMPLETE, data: robotIntentData};
+                            this.emit('robotIntent', robotIntent);
                         })
                         .catch((result: any) => {
                             console.log(result);
@@ -377,6 +389,37 @@ export default class Robot extends EventEmitter {
                         }
                     }
                     break;
+                case "photo":
+                    console.log(this._robotConnection.requester);
+                    console.log(this._robotConnection.requester.media.capture);
+                    console.log(this._robotConnection.requester.media.capture.photoRequest);
+                    try {
+                        let p = this._robotConnection.requester.media.capture.photo().complete;  //photo.takePhoto().complete;
+                        p.then( (data: any) => {
+                            const uri = data.URI;
+                            console.log(data);
+                            console.log('photo ready - uri: ', uri);
+                            //start getting the thing
+                            const file = fs.createWriteStream('./PhotoIzHere.jpg');
+                            var request = http.get({
+                                hostname: this.ip,
+                                port: 8160, //7160, //8160,
+                                path: uri
+                            }, function(response: any) {
+                               response.pipe(file);
+                               console.log('Your photo was saved as PhotoIzHere.jpg');
+                               var cp = require("child_process");
+                               cp.exec("open PhotoIzHere.jpg");
+                            });
+                        })
+                        .catch((result: any) => {
+                            console.log(result);
+                            this.updateRobotStatusMessages(JSON.stringify(result, null, 2))
+                        });
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    break;
             }
         }
     }
@@ -414,6 +457,8 @@ export default class Robot extends EventEmitter {
         this.loginToAccount(creds)
             .then((account: JiboAccount) => {
                 console.log(`connect: connected:`, account);
+                // let obj: any = account;
+                // console.log(obj, obj.constants);
                 this.getRobot(account, this.serialName)
                     .then((connection: JiboRobotConnection) => {
                         console.log(`connection:`, connection);
@@ -445,6 +490,7 @@ export default class Robot extends EventEmitter {
                             })
                             .catch((err: any) => {
                                 console.log(`connect: connection.connect: error:`, err);
+                                this.updateRobotStatusMessages(`connect: connection.connect: error: ${err}`);
                             })
                     })
                     .catch((err: any) => {

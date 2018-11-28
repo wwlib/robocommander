@@ -41,6 +41,7 @@ export default class GraphModel extends EventEmitter {
     private _newNode: Node | undefined;
     private _newRelationship: Relationship | undefined;
     private _globalStateData: any = {global: true, robot: undefined};
+    private _activeRobot: Robot | undefined;
 
     constructor() {
         super();
@@ -171,8 +172,9 @@ export default class GraphModel extends EventEmitter {
             this._activeNode.caption = label;
             this._activeNode.properties.clearAll();
             propertiesText.split("\n").forEach((line: string) => {
-                let tokens = line.split(/: +/);
-                if (tokens.length === 2) {
+                let tokens = line.split(/:(.*)/);
+                console.log(line, tokens);
+                if (tokens.length >= 2) {
                     var key = tokens[0].trim();
                     var value = tokens[1].trim();
                     if (key.length > 0 && value.length > 0) {
@@ -373,14 +375,25 @@ export default class GraphModel extends EventEmitter {
         return 0
     }
 
-    executeScriptWithName(scriptName: string, robot?: Robot): any {
+    get activeRobot(): Robot | undefined {
+        if (this._activeRobot && !this._activeRobot.connected ) {
+            this._activeRobot = undefined;
+        }
+        return this._activeRobot;
+    }
+
+    set activeRobot(robot: Robot | undefined) {
+        this._activeRobot = robot;
+    }
+
+    executeScriptWithName(scriptName: string, robot?: Robot, data?: any): any {
         let result: any = undefined;
         if (this.activeGraph) {
             let scriptConfig: ScriptConfig = this.activeGraph.scriptConfig;
             console.log(`GraphModel: executeScriptWithName: scriptConfig:`, scriptConfig);
             let savedScript: SavedScript | undefined = scriptConfig.getSavedScriptWithName(scriptName);
             if (savedScript) {
-                result = this.executeScript(savedScript, robot);
+                result = this.executeScript(savedScript, robot, data);
             } else {
                 console.log(`executeScriptWithName: error: no script found with name: ${scriptName}`);
             }
@@ -390,7 +403,7 @@ export default class GraphModel extends EventEmitter {
 
     executeScript(activeScript: SavedScript, robot?: Robot, data?: any): any {
         console.log(`GraphModel: executeScript:`, activeScript, robot, data);
-        let output: any = undefined;
+        let output: any = {};
         if (robot) {
             output = this.evaluateScriptWithData(activeScript.script, robot.stateData);
         } else {
@@ -407,29 +420,27 @@ export default class GraphModel extends EventEmitter {
         let result: string = '';
         let script = '`' + prompt + '`';
         if (robot && robot.stateData) {
-            result = this.evaluateScriptWithData(script, robot.stateData);
+            result = this.evaluateScriptWithData(script, robot.stateData).result;
         } else {
-            result = this.evaluateScriptWithData(script, this._globalStateData);
+            result = this.evaluateScriptWithData(script, this._globalStateData).result;
         }
         return result;
     }
 
-    evaluateScriptWithData(scriptText: string, scriptData: any): string {
+    evaluateScriptWithData(scriptText: string, scriptData: any): {result: any, sandbox: any} {
         let scriptDataSandbox:any;
         scriptDataSandbox = this.getSandbox(scriptData);
-
-        // let script = '`' + scriptText + '`';
-        //do a safe eval on the condition
-        try {
-            return vm.runInContext(scriptText, scriptDataSandbox);
+        try { //do a safe eval on the condition
+            let result = vm.runInContext(scriptText, scriptDataSandbox);
+            return {result: result, sandbox: scriptDataSandbox};
         } catch (e) {
             console.log(`evaluateScriptWithData: error evaluating: ${scriptText}: ${scriptData} - error: ${e.message}`);
-            return '';
+            return {result: '', sandbox: {}}
         }
     }
 
-    getSandbox(promptData:any): any {
-        return vm.createContext(promptData);
+    getSandbox(data: any): any {
+        return vm.createContext(data);
     }
 
     deleteStateData(robot?: Robot): void {

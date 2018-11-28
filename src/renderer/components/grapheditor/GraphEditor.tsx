@@ -3,6 +3,8 @@ import * as ReactBootstrap from "react-bootstrap";
 import Checkbox from '../Checkbox';
 import FontAwesome from 'react-fontawesome';
 
+const jsonic = require('jsonic');
+
 import {
     select,
     Selection,
@@ -32,7 +34,7 @@ import GraphModel from './model/GraphModel';
 import CommanderModel from '../../model/Model';
 import { SavedTTS } from './model/GraphConfig';
 
-import Robot, { RobotIntent, RobotIntentData } from '../../model/Robot';
+import Robot, { RobotIntent, RobotIntentData, RobotIntentType } from '../../model/Robot';
 
 export interface GraphEditorProps {
     commanderModel: CommanderModel
@@ -226,26 +228,34 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
         this.draw();
     }
 
+    /** called with NLU results in response to an ask node **/
     onRobotIntent(robotIntent: RobotIntent): void {
+
+        /** parse NLU results **/
         let robot: Robot = robotIntent.robot;
-        let intentType: string = robotIntent.type;
+        let intentType: RobotIntentType = robotIntent.type;
         let intentData: RobotIntentData = robotIntent.data;
         let nluData: any = intentData.nluData;
-        console.log(`GraphEditor: onRobotIntent: ${intentType}`, robot, intentData);
+        console.log(`GraphEditor: onRobotIntent: ${RobotIntentType[intentType]}`, robot, intentData);
         console.log(`  --: activeNode: `, this.graphModel.activeNode);
+        if (robot) {
+            this.graphModel.activeRobot = robot;
+        }
 
+        /** update robot state with NLU results **/
         if (robot && nluData && nluData.parameters) {
             console.log(`GraphEditor: onRobotIntent: updating robot state data:`, nluData.parameters);
             robot.updateStateData(nluData.parameters);
             console.log(robot.stateData);
         }
 
+        /** auto execute **/
         let activeNode: Node | undefined = this.graphModel.activeNode;
-        if (activeNode && robotIntent && robot) {
+        if (activeNode && intentData && robot) {
             let model: Model = activeNode.model;
             let nextNodeList: Node[] = [];
             switch (intentType) {
-                case 'launch':
+                case RobotIntentType.LAUNCH:
                     let nodes: Node[] = model.nodeList();
                     let launchNodeList: Node[] = [];
                     nodes.forEach((node: Node) => {
@@ -254,17 +264,20 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                         }
                     });
                     launchNodeList.forEach((launchNode: Node) => {
-                        let candidateNodes: Node[] = this.getCandidateNodes(launchNode, robotIntent.data.intent);
+                        let candidateNodes: Node[] = this.getCandidateNodes(launchNode, intentData.intent);
                         nextNodeList = nextNodeList.concat(candidateNodes);
                     });
                     break;
-                case 'listen':
-                    nextNodeList = this.getCandidateNodes(activeNode, robotIntent.data.intent);
+                case RobotIntentType.LISTEN:
+                    nextNodeList = this.getCandidateNodes(activeNode, intentData.intent);
+                    break;
+                case RobotIntentType.ACTION_COMPLETE:
+                    nextNodeList = this.getCandidateNodes(activeNode, intentData.intent);
                     break;
             }
             let nextNode: Node = nextNodeList[0];
             if (nextNode) {
-                this.executeNode(nextNode, robot);
+                this.executeNode(nextNode, this.graphModel.activeRobot);
             }
         }
     }
@@ -299,7 +312,7 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
         if (event.shiftKey) {
             this.editNode(graphNode);
         } else {
-            this.executeNode(graphNode);
+            this.executeNode(graphNode, this.graphModel.activeRobot);
         }
     }
 
@@ -339,41 +352,86 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
     executeNode(node: Node, robot?: Robot)
     {
         console.log(node);
+
+        /** AutoScroll **/
         this.graphModel.activeNode = node;
         let model: Model = node.model;
         let relationships: Relationship[];
-        let nodeCoordinatesList: any[] = [];
+        let childCoordinatesList: any[] = [];
         relationships = model.relationshipList();
         relationships.forEach((relationship: Relationship) => {
             if (relationship.start == node) {
                 console.log(`nextNode: ${relationship.end.label}: (${relationship.end.x}, ${relationship.end.y})`);
-                nodeCoordinatesList.push({x:relationship.end.x, y:relationship.end.y})
+                childCoordinatesList.push({x:relationship.end.x, y:relationship.end.y})
             }
         });
         if (this.state.autoScroll && svg) {
             let svgtemp: any = svg;
             let svgTransform: any = d3Zoom.zoomTransform(svgtemp);
-            if (nodeCoordinatesList.length) {
-                let sum: any = nodeCoordinatesList.reduce((a: any, b: any) => ({x: a.x + b.x, y: a.y + b.y}));
+            if (childCoordinatesList.length) {
+                let sum: any = childCoordinatesList.reduce((a: any, b: any) => ({x: a.x + b.x, y: a.y + b.y}));
                 console.log(sum);
-                let xavg: number = sum.x / nodeCoordinatesList.length;
-                let yavg: number = sum.y / nodeCoordinatesList.length;
+                let xavg: number = sum.x / childCoordinatesList.length;
+                let yavg: number = sum.y / childCoordinatesList.length;
                 // svgTransform.k = svgTransform.k + Math.random() * 0.001;
                 svgTransform.x = this.graphModel.appDimensions.width / 2 - xavg;
                 svgTransform.y = this.graphModel.appDimensions.height / 2 - yavg;
+                console.log(svgTransform);
+                //svg.transition().duration(750).call(zoomer.transform, trx);
+                let svgAny: any = svg as any;
+                svgAny.transition().duration(750).call(zoomer.translateTo, this.graphModel.appDimensions.width / 2, this.graphModel.appDimensions.height / 2);
+                // zoomer.scaleBy(svg.transition().duration(750), 1.3);
             }
-            console.log(svgTransform);
-            //svg.transition().duration(750).call(zoomer.transform, trx);
-            let svgAny: any = svg as any;
-            svgAny.transition().duration(750).call(zoomer.translateTo, this.graphModel.appDimensions.width / 2, this.graphModel.appDimensions.height / 2);
-            // zoomer.scaleBy(svg.transition().duration(750), 1.3);
         }
+
+        /** execution **/
         if (node) {
-            var scriptName: string = node.properties.has('scriptName');
-            if (scriptName) {
-                let result: any = this.graphModel.executeScriptWithName(scriptName, robot);
-                console.log(`GraphEditor: executeNode: scriptResult: `, result);
+
+            /** script execution **/
+            // if the node has a valid scriptName property, execute that script
+            // if the node has a valid scriptContext property, execute the script using that data as context
+            // otherwise execute the script using the active robot's stateData as context ()
+            let scriptName: string = node.properties.has('scriptName');
+            let scriptContext: any = node.properties.has('scriptContext');
+            let scriptData: any;
+            if (scriptContext) {
+                try {
+                    scriptData = jsonic(scriptContext);
+                } catch (err) {
+                    console.log(`GraphEditor: executeNode: error: `, err);
+                }
             }
+            let scriptOutput: any;
+            if (scriptName) {
+                if (scriptData) {
+                    scriptOutput = this.graphModel.executeScriptWithName(scriptName, undefined, scriptData);
+                } else {
+                    scriptOutput = this.graphModel.executeScriptWithName(scriptName, robot);
+                }
+                console.log(`GraphEditor: executeNode: scriptOutput: `, scriptOutput);
+            }
+
+            /** excute the robotCommand specified by the node **/
+            // if the scriptOutput contains a robotCommand property, send that command to the robot
+            let robotCommand: string = node.properties.has('robotCommand');
+            if (!robotCommand && scriptOutput && scriptOutput.sandbox && scriptOutput.sandbox.robotCommand) {
+                robotCommand = scriptOutput.sandbox.robotCommand;
+            }
+            console.log(`robotCommand: robotCommand: `, robotCommand);
+            if (robotCommand) {
+                let command: any;
+                try {
+                    command = jsonic(robotCommand);
+                    if (command.type && command.data) {
+                        console.log(`robotCommand: sending: `, command);
+                        this.props.commanderModel.sendRomCommandWithData(command, robot);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            /** parse the node's properties and send the specified command **/
             switch (node.label) {
                 case 'tts':
                 case 'esml':
@@ -384,7 +442,7 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                     }
                     break;
                 case 'ask':
-                    var prompt: string = node.properties.has('prompt');
+                var prompt: string = (node.properties.has('text') || node.properties.has('prompt') || node.properties.has('esml'));
                     prompt = this.graphModel.evaluateTTS(prompt, robot);
                     var context: string = node.properties.has('context');
                     var contexts: string[] = [];
@@ -406,7 +464,7 @@ export default class GraphEditor extends React.Component < GraphEditorProps, Gra
                         this.props.commanderModel.sendLookAt({angle: angle}, robot);
                     } else if (vectorProperty) {
                         try {
-                            vector = JSON.parse(vectorProperty);
+                            vector = jsonic(vectorProperty);
                             this.props.commanderModel.sendLookAt({vector: vector}, robot);
                         } catch (err) {
                             console.log(`executeNode: error parsing vectorProperty`);

@@ -2,6 +2,8 @@ import * as React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import RomCommand from '../model/RomCommand';
 
+const jsonic = require('jsonic');
+
 
 export interface ModalCommandInfoProps { showModalProp: boolean, onClose: any, modalCommand: RomCommand, editMode: string }
 export interface ModalCommandInfoState { showModalState: boolean, name: string, type: string, data: any }
@@ -26,7 +28,7 @@ export default class ModalCommandInfo extends React.Component<ModalCommandInfoPr
                     showModalState: nextProps.showModalProp,
                     name: nextProps.modalCommand.name,
                     type: nextProps.modalCommand.type,
-                    data: JSON.stringify(nextProps.modalCommand.data),
+                    data: jsonic.stringify(nextProps.modalCommand.data),
                 }, () => {
                     // console.log(this.state.name, this.state.type, this.state.data, this.state);
                 });
@@ -53,7 +55,7 @@ export default class ModalCommandInfo extends React.Component<ModalCommandInfoPr
         try {
             this.props.modalCommand.name = this.state.name;
             this.props.modalCommand.type = this.state.type;
-            this.props.modalCommand.data = JSON.parse(this.state.data);
+            this.props.modalCommand.data = jsonic(this.state.data);
             console.log(this.props.modalCommand);
             this.close();
         } catch (e) {

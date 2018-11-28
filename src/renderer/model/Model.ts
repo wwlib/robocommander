@@ -186,7 +186,7 @@ export default class Model extends EventEmitter {
     get targetedRobots(): Robot[] {
         return this.robots.targetedRobots
     }
-    
+
     getAppVerison(): string {
         return appVersion;
     }
