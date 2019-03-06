@@ -1,6 +1,7 @@
 import {EventEmitter} from "events";
 import AppInfo from './AppInfo';
-import Robot, {RobotIntent} from './Robot';
+import Robot, {RobotIntent, RobotType} from './Robot';
+import RobokitRobot from './RobokitRobot';
 
 export default class Robots extends EventEmitter {
 
@@ -24,7 +25,13 @@ export default class Robots extends EventEmitter {
 
     initWithData(dataList: any[]): void {
         dataList.forEach((data: any) => {
-            let robot: Robot = new Robot();
+            let robot: Robot;
+            if (data.type == RobotType.robokit) {
+                console.log(`Robots: initWithData: new RobokitRobot()`);
+                robot = new RobokitRobot();
+            } else {
+                robot = new Robot();
+            }
             robot.initWithData(data);
             this.addRobot(robot);
         })

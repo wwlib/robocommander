@@ -4,10 +4,11 @@ import Draggable from "react-draggable";
 import Titlebar from './titlebar/Titlebar';
 
 import Robots from '../model/Robots';
-import Robot from '../model/Robot';
+import Robot, { RobotType, RobotData } from '../model/Robot';
 import AppInfo from '../model/AppInfo';
 import Model from '../model/Model';
 import ModalRobotInfo from './ModalRobotInfo';
+import RobokitRobot from "../model/RobokitRobot";
 
 export interface RobotListProps { id: string, robots: Robots; appInfo: AppInfo, model: Model, onClosePanel: any }
 export interface RobotListState {
@@ -15,6 +16,7 @@ export interface RobotListState {
     statusMessages: string;
     showModal: boolean;
     modalRobot: Robot;
+    addNewRobot: boolean;
 }
 
 export default class RobotList extends React.Component<RobotListProps, RobotListState> {
@@ -28,7 +30,12 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
     }
 
     componentWillMount() {
-        this.setState({showModal: false, lastUpdateTime: new Date().getTime(), statusMessages: ''});
+        this.setState({
+            showModal: false, 
+            lastUpdateTime: new Date().getTime(), 
+            statusMessages: '',
+            addNewRobot: false
+        });
         this.props.robots.on('updateRobots', this._updateRobotsHandler);
     }
 
@@ -109,9 +116,27 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
         }
     }
 
-    onCloseRobotModal() {
+    onCloseRobotModal(cancel: boolean) {
         // console.log(`RobotList: onCloseRobotModal`);
-        this.setState({ showModal: false });
+        if (!cancel && this.state.addNewRobot && this.state.modalRobot) {
+            const modalRobot: Robot = this.state.modalRobot;
+            let newRobot: Robot;
+            let newRobotData: RobotData = {
+                type: modalRobot.type,
+                name: modalRobot.name,
+                ip: modalRobot.ip,
+                serialName: modalRobot.serialName,
+                email: modalRobot.email,
+                password: modalRobot.password
+            }
+            if (this.state.modalRobot.type == RobotType.robokit) {
+                newRobot = new RobokitRobot(newRobotData);
+            } else {
+                newRobot = modalRobot
+            }
+            this.props.robots.addRobot(newRobot);
+        }
+        this.setState({ showModal: false, addNewRobot: false });
     }
 
     openRobotModal(robot: Robot) {
@@ -142,9 +167,11 @@ export default class RobotList extends React.Component<RobotListProps, RobotList
     }
 
     onAddRobot(): void {
-        let newRobot: Robot = new Robot();
-        this.props.robots.addRobot(newRobot);
-        this.openRobotModal(newRobot);
+        let tempRobot: Robot = new Robot();
+        this.setState({
+            addNewRobot: true
+        });
+        this.openRobotModal(tempRobot);
     }
 
     onClearMessages(): void {

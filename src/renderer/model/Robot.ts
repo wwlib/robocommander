@@ -6,6 +6,7 @@ import Hub, { NluData } from '../romulus/Hub';
 const fs = require('fs');
 const http = require('http');
 
+import RobokitConnection from './RobokitConnection';
 import {
     Account as JiboAccount,
     AccountCreds as JiboAccountCreds,
@@ -15,7 +16,8 @@ import {
 import { CommandRequester } from '@jibo/command-requester';
 
 export enum RobotType {
-    jibo = 'jibo'
+    jibo = 'jibo',
+    robokit = 'robokit'
 }
 
 export interface RobotData {
@@ -58,9 +60,9 @@ export default class Robot extends EventEmitter {
     public password: string = '';
     public appInfo: AppInfo | undefined;
 
-    private _connected: boolean;
-    private _targeted: boolean;
-    private _robotConnection: JiboRobotConnection | undefined;
+    protected _connected: boolean;
+    protected _targeted: boolean;
+    protected _robotConnection: JiboRobotConnection | RobokitConnection | undefined;
     private _number: number = 0;
     private _hub: Hub;
     private _muted: boolean = false;
@@ -401,7 +403,7 @@ export default class Robot extends EventEmitter {
                             console.log('photo ready - uri: ', uri);
                             //start getting the thing
                             const file = fs.createWriteStream('./PhotoIzHere.jpg');
-                            var request = http.get({
+                            http.get({
                                 hostname: this.ip,
                                 port: 8160, //7160, //8160,
                                 path: uri
@@ -471,7 +473,8 @@ export default class Robot extends EventEmitter {
                             .then(() => {
                                 console.log(`connect: Robot connected!`);
                                 if (this._robotConnection) {
-                                    this.ip = this._robotConnection['_ip'];
+                                    const connectionObj: any = this._robotConnection;
+                                    this.ip = connectionObj['_ip'];
                                     this._robotConnection.once('disconnect', () => {
                                         console.info('connect: Robot disconnected.');
                                         this.updateRobotStatusMessages('connect: Robot disconnected.');
