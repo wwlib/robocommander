@@ -28,7 +28,7 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
 
     componentWillReceiveProps(nextProps: ModalRobotInfoProps) {
         if (nextProps.modalRobot) {
-            let ip: string = `<read-only:set-automatically>`;
+            let ip: string = `<jibo ip is set-automatically>`;
             if (nextProps.modalRobot.ip) {
                 ip = nextProps.modalRobot.ip;
             }
@@ -50,9 +50,9 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
     componentDidUpdate(nextProps: ModalRobotInfoProps, nextState: ModalRobotInfoState): void {
     }
 
-    close() {
+    close(cancel: boolean = true) {
         this.setState({ showModalState: false, type: '', name: '', ip: '', aliasName: '', email: '', password: ''}, () => {
-            this.props.onClose();
+            this.props.onClose(cancel);
         });
     }
 
@@ -62,7 +62,8 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
         this.props.modalRobot.serialName = this.state.aliasName;
         this.props.modalRobot.email = this.state.email;
         this.props.modalRobot.password = this.state.password;
-        this.close();
+        this.props.modalRobot.ip = this.state.ip;
+        this.close(false);
     }
 
     onHide() {
@@ -84,11 +85,22 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
             case 'password':
                 this.setState({ password: nativeEvent.target.value});
                 break;
+            case 'ip':
+                let ip: string = `<jibo ip is set-automatically>`;
+                if (this.state.type == RobotType.robokit) {
+                    ip = nativeEvent.target.value
+                }
+                this.setState({ ip: ip});
+                break;
         }
     }
 
     onMenuItemSelected(value: string) {
-        this.setState({ type: value});
+        let ip: string = `<jibo ip is set-automatically>`;
+        if (value == RobotType.robokit) {
+            ip = '';
+        }
+        this.setState({ type: value, ip: ip });
     }
 
     renderRobotTypeItems(): any {
@@ -161,7 +173,7 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
                       </ReactBootstrap.Modal.Body>
 
                       <ReactBootstrap.Modal.Footer>
-                        <ReactBootstrap.Button onClick={this.close.bind(this)}>Cancel</ReactBootstrap.Button>
+                        <ReactBootstrap.Button onClick={() => this.close()}>Cancel</ReactBootstrap.Button>
                         <ReactBootstrap.Button bsStyle="primary" onClick={this.save.bind(this)}>Save changes</ReactBootstrap.Button>
                       </ReactBootstrap.Modal.Footer>
 

@@ -69,7 +69,7 @@ export default class Hub extends EventEmitter {
 
     onRobotConnected(): void {
         console.log(`HUB: onRobotConnected: ${this.robot.serialName}`, this.robot.requester);
-        if (this.robot.requester) {
+        if (this.robot.requester && this.robot.requester.listen) {
             if (this.robot.appInfo) {
                 PersistenceManager.Instance.connect(this.robot.appInfo, true);
                 this.dialogflowController.config = this.robot.appInfo;
