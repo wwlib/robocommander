@@ -63,8 +63,8 @@ export default class Robot extends EventEmitter {
     protected _connected: boolean;
     protected _targeted: boolean;
     protected _robotConnection: JiboRobotConnection | RobokitConnection | undefined;
+    protected _hub: Hub;
     private _number: number = 0;
-    private _hub: Hub;
     private _muted: boolean = false;
 
     private _motionTrackToken: any;

@@ -53,8 +53,11 @@ export default class RobokitRobot extends Robot {
 
         this._robotConnection.on('connected', () => {
             console.log(`RobokitRobot: connection: connected`);
+            this.updateRobotStatusMessages(`...connected.`);
             this._connected = true;
             this._targeted = true;
+            this._hub.onRobotConnected();
+            this.emit('updateRobot', this);
         });
 
         this._robotConnection.on('message', (message: any) => {

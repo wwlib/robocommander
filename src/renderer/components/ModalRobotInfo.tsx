@@ -173,7 +173,7 @@ export default class ModalRobotInfo extends React.Component<ModalRobotInfoProps,
                       </ReactBootstrap.Modal.Body>
 
                       <ReactBootstrap.Modal.Footer>
-                        <ReactBootstrap.Button onClick={this.close.bind(this)}>Cancel</ReactBootstrap.Button>
+                        <ReactBootstrap.Button onClick={() => this.close()}>Cancel</ReactBootstrap.Button>
                         <ReactBootstrap.Button bsStyle="primary" onClick={this.save.bind(this)}>Save changes</ReactBootstrap.Button>
                       </ReactBootstrap.Modal.Footer>
 

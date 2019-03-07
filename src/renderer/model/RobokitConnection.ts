@@ -65,7 +65,13 @@ export default class RobokitConnection extends EventEmitter {
                     const transaction: Transaction = TransactionFactory.createTransaction('ident', data, this.robotSerialName);
                     return this.sendTransactionMessageData(transaction.getMessageDataToSend());
                 }
-            }
+            },
+            // listen: {
+            //     start: () => {},
+            //     subscribe: {
+            //         hotword: () => {}
+            //     }
+            // }
         }
     }
 
