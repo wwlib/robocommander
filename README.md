@@ -4,6 +4,8 @@
 
 [https://wwlib.github.io/robocommander/](https://wwlib.github.io/robocommander/)
 
+see also: [https://wwlib.github.io/robokit/](https://wwlib.github.io/robokit/)
+
 [https://wwlib.github.io](https://wwlib.github.io/)
 
 robocommander is a tool for controlling robots. Any robot that implements a command protocol via a socket or REST API can potentially be controlled by robocommander (with appropriate modifications). The current version can control [Jibo](https://jibo.com/) robots (dev credentials are required).
