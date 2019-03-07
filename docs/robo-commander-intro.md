@@ -5,7 +5,7 @@
 [https://wwlib.github.io](https://wwlib.github.io/)
 
 
-RoboCommander is a tool for controlling robots. Any robot that implements a command protocol via a socket or REST API can potentially be controlled by RoboCommander (with appropriate modifications). The current version can control [Jibo](https://jibo.com/) robots (dev credentials are required).
+RoboCommander is a tool for controlling robots. Any robot that implements a command protocol via a socket or REST API can potentially be controlled by RoboCommander (with appropriate modifications). The current version can control [robokit](https://wwlib.github.io/robokit/) robots and [Jibo](https://jibo.com/) robots (dev credentials are required).
 
 RoboCommander is ideal for real-time, human-operated Woz (Wizard of Oz) remote control. In addition, RoboCommander’s WozGraph panel provides a graph-based tool for designing and controlling scripted interactions. WozGraph layouts can incorporate simple automation using  JavaScript. WozGraph layouts can be configured to respond automatically to voice commands via integration with LUIS and/or Dialogflow NLU services.
 
