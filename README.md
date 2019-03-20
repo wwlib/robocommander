@@ -67,6 +67,20 @@ yarn dist:dir
 If things go wrong, try clearing any existing node_modules directory
 Also clear yarn cache: $ rm -rf ~/.cache/yarn
 
+### Windows
+- need python 2.7
+- libxml.js node gyp error
+- need `npm install -g --production windows-build-tools`
+  - will install python 2.7
+  - solves this error:
+
+```bash
+MSBUILD : error MSB3428: Could not load the Visual C++ component "VCBuild.exe". To fix this, 1) install the .NET Framewo
+rk 2.0 SDK, 2) install Microsoft Visual Studio 2005 or 3) add the location of the component to the system path if it is
+installed elsewhere.  [C:\Users\seppo.rapo\github\robocommander\node_modules\xmlshim\node_modules\libxmljs\build\binding
+.sln]
+```
+
 ### License
 
 [MIT](https://github.com/electron/electron/blob/master/LICENSE)
