@@ -48,7 +48,8 @@ export default class RobokitRobot extends Robot {
         if (this._connected) {
             this.disconnect();
         }
-        this._robotConnection = new RobokitConnection();
+        let port: number = appInfo.port || 8080;
+        this._robotConnection = new RobokitConnection(this.ip, port);
         this._robotConnection.connect();
 
         this._robotConnection.on('connected', () => {

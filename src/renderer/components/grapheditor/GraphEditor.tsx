@@ -54,7 +54,7 @@ export interface GraphEditorState {
 let thiz: GraphEditor;
 let svgContainer: any;
 let svg: Selection<Element, {}, any, any> | undefined;
-let svg_g: Selection<Element, {}, any, any> | undefined;
+let svg_g: Selection<SVGGElement, {}, any, any> | undefined;
 let zoomer: any;
 let simulation: any;
 let simulationTickCount: number = 0;
