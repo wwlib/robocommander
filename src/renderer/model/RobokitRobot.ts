@@ -27,6 +27,10 @@ export default class RobokitRobot extends Robot {
                     let prompt: string = command.data.text || command.data.prompt;
                     this._robotConnection.requester.expression.say(prompt);
                     break;
+                case "asr":
+                    let asrText: string = command.data.text || command.data.prompt;
+                    this._robotConnection.requester.expression.sendAsr(asrText);
+                    break;
                 case "blink":
                     this._robotConnection.requester.expression.blink();
                     break;

@@ -53,6 +53,10 @@ export default class RobokitConnection extends EventEmitter {
                     const transaction: Transaction = TransactionFactory.createTransaction('tts', {prompt: prompt}, this.robotSerialName);
                     return this.sendTransactionMessageData(transaction.getMessageDataToSend());
                 },
+                sendAsr: (text: string): AsyncToken<any> => {
+                    const transaction: Transaction = TransactionFactory.createTransaction('asr', {text: text}, this.robotSerialName);
+                    return this.sendTransactionMessageData(transaction.getMessageDataToSend());
+                },
                 blink: (): AsyncToken<any> => {
                     const transaction: Transaction = TransactionFactory.createTransaction('blink', {}, this.robotSerialName);
                     return this.sendTransactionMessageData(transaction.getMessageDataToSend());
